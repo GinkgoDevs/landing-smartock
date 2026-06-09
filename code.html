@@ -1,0 +1,484 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Smartock - Gestión Inteligente para PyMEs Argentinas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#5bd5fc",
+                        "inverse-primary": "#e0b6ff",
+                        "tertiary-fixed-dim": "#ffb877",
+                        "secondary-container": "#5ed8ff",
+                        "on-secondary-container": "#005c72",
+                        "primary-fixed": "#f2daff",
+                        "inverse-on-surface": "#f2efff",
+                        "surface": "#fcf8ff",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "surface-dim": "#dad8eb",
+                        "tertiary-container": "#733f00",
+                        "on-primary-fixed": "#2e004e",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#522c00",
+                        "surface-container": "#efecff",
+                        "outline-variant": "#d0c2d5",
+                        "surface-variant": "#e3e0f4",
+                        "on-primary-fixed-variant": "#6b00af",
+                        "on-error": "#ffffff",
+                        "secondary": "#006780",
+                        "inverse-surface": "#2f2f3e",
+                        "background": "#fcf8ff",
+                        "surface-tint": "#862dcb",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e9e6fa",
+                        "on-primary-container": "#daa9ff",
+                        "secondary-fixed": "#b7eaff",
+                        "on-tertiary-container": "#f7ad68",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1a28",
+                        "tertiary-fixed": "#ffdcc0",
+                        "surface-bright": "#fcf8ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#e0b6ff",
+                        "outline": "#7f7385",
+                        "surface-container-highest": "#e3e0f4",
+                        "surface-container-low": "#f5f2ff",
+                        "on-surface": "#1a1a28",
+                        "on-secondary-fixed-variant": "#004e61",
+                        "on-tertiary-fixed": "#2d1600",
+                        "primary": "#520088",
+                        "primary-container": "#7209b7",
+                        "on-surface-variant": "#4d4353",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#001f28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-desktop": "32px",
+                        "container-max-width": "1280px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf8ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(233, 236, 239, 0.5); }
+        .hero-gradient { background: radial-gradient(circle at top right, rgba(134, 45, 203, 0.08), transparent), radial-gradient(circle at bottom left, rgba(0, 103, 128, 0.05), transparent); }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-300">
+<div class="flex justify-between items-center px-gutter max-w-container-max-width mx-auto h-16">
+<div class="flex items-center gap-3">
+<img alt="Smartock Logo" class="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpxW8mWt3UtPXXdPShLdzSA9-Kqq_ZfDRERdrWgoYpbNdVf0E6X3w9GMK8m4nwHaaOyB3BXwyvI6zG4aRkB5ZLU6JSyjRIB5stXeRONiCoKeTiUX4qwEba9VyNaWOcIKg0dKDZL4T0eZRxtl78KrY7AbKU2kB96lVt6qNgE2jcuUklELoDotU6XtetB3wfO87r5K2KVg3jS9NSPlY61f0pmyKWBpsNEV0OJmg2d1oZfRTmA5p48zCRqEu5ch13BaP9xzBVR3DByf0">
+<span class="font-headline-md text-headline-md font-bold text-primary">Smartock</span>
+</div>
+<div class="hidden md:flex items-center gap-8 font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#funciones">Funciones</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#planes">Planes</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#contacto">Contacto</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-bold hover:bg-primary-container transition-all">Comenzar</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="pt-32 pb-20 hero-gradient overflow-hidden">
+<div class="max-w-container-max-width mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="space-y-6">
+<h1 class="font-display-lg text-display-lg leading-tight">
+                    Tu negocio, <span class="text-primary">bajo control.</span><br>
+                    Tu rentabilidad, <span class="text-primary-container">en crecimiento.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                    La plataforma SaaS diseñada específicamente para PyMEs argentinas. Simplificá tu stock, automatizá tu facturación y tomá decisiones inteligentes con IA.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="px-8 py-4 rounded-xl bg-primary text-on-primary font-bold text-title-lg shadow-lg hover:shadow-primary/20 transition-all">Comenzar ahora</button>
+<button class="px-8 py-4 rounded-xl border-2 border-primary text-primary font-bold text-title-lg hover:bg-primary/5 transition-all flex items-center gap-2">
+                        Ver Demo <span class="material-symbols-outlined">play_circle</span>
+</button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -inset-4 bg-primary/10 rounded-3xl blur-3xl"></div>
+<img alt="Smartock Dashboard Preview" class="relative rounded-2xl shadow-2xl border border-outline-variant/30" data-alt="A premium high-fidelity dashboard interface of a modern business management software. The UI shows elegant data visualizations, colorful line charts tracking revenue, and organized product inventory modules. The overall aesthetic is clean, minimalist, and uses a palette of bright whites and professional deep violets, illuminated by soft studio lighting to emphasize reliability and technological sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNFPIPLPIKPdD1YeHEtLPIlHWkwfb9-giLM6VRvQEvNJ2fA0lrld_51Zb5c3Bs8CFHdsmTkYjUHtjI0GrBFlF89DuAxUyY9nbFaK9NjmFXzgiW1noGl3V44-X-pL5k-ep89IgeHFR-Et0vk_uffnRgFdTkJTJE6gM4QTu6OZrfSOZfpwKdRB-m3outX0cc-iq6S9qFjS_xLgDGCwbTmF7FcJT0Ny1X-wC14FO4aDCxv-20NCge5i_28bB7Irry9AiHGGNL6UuR-3Q">
+</div>
+</div>
+</header>
+<!-- ¿Qué es Smartock? -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-container-max-width mx-auto px-gutter">
+<div class="flex flex-col md:flex-row items-center gap-16">
+<div class="md:w-1/2">
+<div class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full font-label-md text-label-md mb-4 uppercase tracking-wider">La Inteligencia al servicio de tu PyME</div>
+<h2 class="font-headline-lg text-headline-lg mb-6">¿Qué es Smartock?</h2>
+<div class="space-y-4 font-body-lg text-body-lg text-on-surface-variant">
+<p class="">Smartock no es solo un sistema de gestión; es el cerebro operativo de tu empresa. Combinamos una interfaz intuitiva con potentes motores de Inteligencia Artificial para eliminar las tareas manuales propensas a errores.</p>
+<p class="">Desde la carga automática de facturas hasta la predicción de quiebre de stock, Smartock aprende de tu negocio para que vos puedas enfocarte en lo que realmente importa: vender más.</p>
+</div>
+</div>
+<div class="md:w-1/2 grid grid-cols-2 gap-4">
+<div class="bg-primary/5 p-8 rounded-3xl space-y-3">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-title-lg text-title-lg">IA Nativa</h3>
+<p class="font-body-md text-body-md">Algoritmos que procesan documentos y predicen tendencias.</p>
+</div>
+<div class="bg-secondary/5 p-8 rounded-3xl space-y-3 mt-8">
+<span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+<h3 class="font-title-lg text-title-lg">100% Cloud</h3>
+<p class="font-body-md text-body-md">Accedé a tu información desde cualquier lugar del mundo.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ¿A quién está dirigido? -->
+<section class="py-24 bg-surface-container">
+<div class="max-w-container-max-width mx-auto px-gutter text-center">
+<h2 class="font-headline-lg text-headline-lg mb-12 text-primary">Impulsamos todo tipo de comercios</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<!-- Industry Cards -->
+<div class="p-6 glass-card rounded-2xl flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary">hardware</span>
+<span class="font-label-md text-label-md font-bold">Ferreterías</span>
+</div>
+<div class="p-6 glass-card rounded-2xl flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary">restaurant_menu</span>
+<span class="font-label-md text-label-md font-bold">Carnicerías</span>
+</div>
+<div class="p-6 glass-card rounded-2xl flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary">shopping_basket</span>
+<span class="font-label-md text-label-md font-bold">Minimarkets</span>
+</div>
+<div class="p-6 glass-card rounded-2xl flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary">checkroom</span>
+<span class="font-label-md text-label-md font-bold">Indumentaria</span>
+</div>
+<div class="p-6 glass-card rounded-2xl flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary">medication</span>
+<span class="font-label-md text-label-md font-bold">Farmacias</span>
+</div>
+<div class="p-6 glass-card rounded-2xl flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary">toys</span>
+<span class="font-label-md text-label-md font-bold">Jugueterías</span>
+</div>
+</div>
+</div>
+</section>
+<!-- El Problema vs La Solución -->
+<section class="py-24">
+<div class="max-w-container-max-width mx-auto px-gutter">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/30 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30">
+<div class="bg-white p-12 space-y-6">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-label-md text-label-md font-black uppercase">Sin Smartock (El Caos)</span>
+</div>
+<ul class="space-y-4">
+<li class="flex gap-3 text-on-surface-variant font-body-lg">
+<span class="material-symbols-outlined text-error">close</span>
+                            Pérdidas por quiebres de stock no detectados.
+                        </li>
+<li class="flex gap-3 text-on-surface-variant font-body-lg">
+<span class="material-symbols-outlined text-error">close</span>
+                            Carga manual de facturas lenta y con errores.
+                        </li>
+<li class="flex gap-3 text-on-surface-variant font-body-lg">
+<span class="material-symbols-outlined text-error">close</span>
+                            Diferencias de caja imposibles de rastrear.
+                        </li>
+<li class="flex gap-3 text-on-surface-variant font-body-lg">
+<span class="material-symbols-outlined text-error">close</span>
+                            Desconocimiento de la rentabilidad real diaria.
+                        </li>
+</ul>
+</div>
+<div class="bg-primary p-12 space-y-6 text-on-primary">
+<div class="flex items-center gap-2 text-primary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md font-black uppercase">Con Smartock (La Solución)</span>
+</div>
+<ul class="space-y-4">
+<li class="flex gap-3 font-body-lg">
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+                            Alertas predictivas para reposición de mercadería.
+                        </li>
+<li class="flex gap-3 font-body-lg">
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+                            IA que lee y carga facturas en segundos.
+                        </li>
+<li class="flex gap-3 font-body-lg">
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+                            Control total de caja y medios de pago integrados.
+                        </li>
+<li class="flex gap-3 font-body-lg">
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+                            Reportes en tiempo real sobre el margen de ganancia.
+                        </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Características (Grid de 8 puntos) -->
+<section class="py-24 bg-surface-container-low" id="funciones">
+<div class="max-w-container-max-width mx-auto px-gutter">
+<div class="text-center mb-16 space-y-4">
+<h2 class="font-headline-lg text-headline-lg">Todo lo que necesitás en un solo lugar</h2>
+<p class="text-on-surface-variant font-body-lg max-w-2xl mx-auto">Funcionalidades potentes diseñadas para la realidad del comercio argentino.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Feature 1 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">inventory_2</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">Control de Stock en Tiempo Real</h3>
+<p class="text-on-surface-variant font-body-md">Movimientos precisos, alertas automáticas y auditorías de depósito simplificadas.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">receipt_long</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">Facturación y POS</h3>
+<p class="text-on-surface-variant font-body-md">Integración directa con ARCA/AFIP. Factura A, B y C sin complicaciones.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">scan_delete</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">Lectura de Facturas con IA</h3>
+<p class="text-on-surface-variant font-body-md">Escaneá o subí fotos de tus facturas de proveedores y cargalas al stock automáticamente.</p>
+</div>
+<!-- Feature 4 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">analytics</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">Análisis de Ventas con IA</h3>
+<p class="text-on-surface-variant font-body-md">Visualizá tus picos de venta y dejá que la IA identifique tus productos más rentables.</p>
+</div>
+<!-- Feature 5 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">monitoring</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">Análisis de Proveedores</h3>
+<p class="text-on-surface-variant font-body-md">Controlá los aumentos de precios de tus proveedores y protegé tus márgenes.</p>
+</div>
+<!-- Feature 6 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">PDF a Excel con IA</h3>
+<p class="text-on-surface-variant font-body-md">Convertí listas de precios y remitos PDF a Excel editable de forma instantánea.</p>
+</div>
+<!-- Feature 7 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group relative">
+<div class="absolute top-4 right-4 bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Próximamente</div>
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">chat</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">WhatsApp AutoInbox</h3>
+<p class="text-on-surface-variant font-body-md">Gestión centralizada de pedidos por WhatsApp con IA para tomar órdenes automáticamente.</p>
+</div>
+<!-- Feature 8 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-colors group">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">hub</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-2">Multi-sucursal</h3>
+<p class="text-on-surface-variant font-body-md">Controlá múltiples locales y depósitos desde una sola cuenta maestra.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-24 bg-white" id="planes">
+<div class="max-w-container-max-width mx-auto px-gutter">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4">Planes diseñados para crecer</h2>
+<p class="text-on-surface-variant font-body-lg">Sin costos ocultos, cancelá cuando quieras.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Plan Smart -->
+<div class="bg-surface-container-low p-10 rounded-3xl border border-outline-variant/30 flex flex-col h-full">
+<h3 class="font-title-lg text-title-lg mb-2">Smart</h3>
+<div class="mb-6">
+<span class="text-4xl font-black text-primary">$15.000</span>
+<span class="text-on-surface-variant">/mes</span>
+</div>
+<p class="text-on-surface-variant font-body-md mb-8">Ideal para emprendedores y comercios chicos.</p>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Gestión de Stock básica</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Punto de Venta (POS)</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> 1 Sucursal</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Soporte por Email</li>
+</ul>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/5 transition-all">Elegir Smart</button>
+</div>
+<!-- Plan Pro -->
+<div class="bg-primary p-10 rounded-3xl border-4 border-primary-container flex flex-col h-full text-on-primary relative shadow-2xl scale-105 z-10">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest">Recomendado</div>
+<h3 class="font-title-lg text-title-lg mb-2">Pro</h3>
+<div class="mb-6">
+<span class="text-4xl font-black text-white">$28.000</span>
+<span class="text-primary-fixed">/mes</span>
+</div>
+<p class="text-primary-fixed font-body-md mb-8">Para PyMEs que necesitan facturación legal y reportes.</p>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span> Facturación Electrónica AFIP</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span> Múltiples Depósitos</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span> Reportes de Ventas Avanzados</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span> Gestión de Gastos</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span> Soporte Prioritario</li>
+</ul>
+<button class="w-full py-3 rounded-xl bg-white text-primary font-bold hover:bg-primary-fixed transition-all">Elegir Pro</button>
+</div>
+<!-- Plan IA Premium -->
+<div class="bg-surface-container-low p-10 rounded-3xl border border-outline-variant/30 flex flex-col h-full">
+<h3 class="font-title-lg text-title-lg mb-2">IA Premium</h3>
+<div class="mb-6">
+<span class="text-4xl font-black text-primary">$45.000</span>
+<span class="text-on-surface-variant">/mes</span>
+</div>
+<p class="text-on-surface-variant font-body-md mb-8">La potencia total de la IA para una automatización máxima.</p>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Todas las funciones de IA</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> WhatsApp Inbox integrado</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Importación de facturas automática</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> API de Integración</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Account Manager dedicado</li>
+</ul>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/5 transition-all">Elegir IA Premium</button>
+</div>
+</div>
+</div>
+</section><section class="py-24 bg-surface-container-low">
+    <div class="max-w-container-max-width mx-auto px-gutter">
+        <div class="bg-primary rounded-3xl p-12 text-center space-y-8 shadow-xl relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary-container/10 rounded-full blur-3xl"></div>
+            <div class="relative z-10">
+                <h2 class="font-headline-lg text-headline-lg text-white mb-4">¿Tenés más dudas?</h2>
+                <p class="text-primary-fixed font-body-lg mb-8 max-w-xl mx-auto">Estamos para ayudarte a transformar tu negocio. Obtené más información personalizada con uno de nuestros expertos.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                    <a href="#" class="px-8 py-4 rounded-xl bg-white text-primary font-bold text-title-lg hover:bg-primary-fixed transition-all flex items-center gap-2 shadow-lg">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        Agendar cita
+                    </a>
+                    <a href="#contacto" class="text-white font-bold hover:underline decoration-secondary-fixed transition-all">Más información aquí</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface w-full py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-gutter max-w-container-max-width mx-auto">
+<div class="col-span-1 md:col-span-1 space-y-6">
+<div class="flex items-center gap-3">
+<img alt="Smartock Logo" class="w-8 h-8 grayscale invert brightness-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpxW8mWt3UtPXXdPShLdzSA9-Kqq_ZfDRERdrWgoYpbNdVf0E6X3w9GMK8m4nwHaaOyB3BXwyvI6zG4aRkB5ZLU6JSyjRIB5stXeRONiCoKeTiUX4qwEba9VyNaWOcIKg0dKDZL4T0eZRxtl78KrY7AbKU2kB96lVt6qNgE2jcuUklELoDotU6XtetB3wfO87r5K2KVg3jS9NSPlY61f0pmyKWBpsNEV0OJmg2d1oZfRTmA5p48zCRqEu5ch13BaP9xzBVR3DByf0">
+<span class="font-title-lg text-title-lg font-black text-primary dark:text-inverse-primary">Smartock</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Revolucionando la gestión de PyMEs en Argentina mediante inteligencia aplicada.</p>
+</div>
+<div>
+<h4 class="font-title-lg text-primary mb-6">Empresa</h4>
+<ul class="space-y-3 font-body-md">
+<li class=""><a class="text-on-surface-variant hover:underline decoration-primary transition-opacity" href="#">Blog</a></li>
+<li class=""><a class="text-on-surface-variant hover:underline decoration-primary transition-opacity" href="#">Soporte</a></li>
+<li class=""><a class="text-on-surface-variant hover:underline decoration-primary transition-opacity" href="#">Contacto</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-title-lg text-primary mb-6">Legal</h4>
+<ul class="space-y-3 font-body-md">
+<li class=""><a class="text-on-surface-variant hover:underline decoration-primary transition-opacity" href="#">Privacidad</a></li>
+<li class=""><a class="text-on-surface-variant hover:underline decoration-primary transition-opacity" href="#">Términos</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-title-lg text-primary mb-6">Newsletter</h4>
+<div class="flex gap-2">
+<input class="bg-white border-outline-variant rounded-lg flex-grow px-4 py-2 focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Tu email" type="email">
+<button class="bg-primary text-white p-2 rounded-lg"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max-width mx-auto px-gutter mt-12 pt-8 border-t border-outline-variant/30 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Smartock. Gestión Inteligente para PyMEs Argentinas.</p>
+</div>
+</footer>
+<script>
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'shadow-md');
+                nav.classList.remove('h-16');
+            } else {
+                nav.classList.remove('py-2', 'shadow-md');
+                nav.classList.add('h-16');
+            }
+        });
+    </script>
+
+
+</body></html>
