@@ -268,11 +268,16 @@ export default function Home() {
       <section className="hero section">
         <div className="container heroGrid">
           <div className="heroCopy">
+            <p className="eyebrow heroEyebrow">Gestion inteligente para PyMEs argentinas</p>
             <h1>
               Deja de adivinar.
               <br />
               Controla stock, caja y <span>rentabilidad.</span>
             </h1>
+            <p className="heroLead">
+              Centraliza operaciones, reduce errores manuales y toma decisiones con datos reales en
+              un solo panel.
+            </p>
           </div>
           <div className="heroProof" aria-label="Beneficios principales">
             {heroProof.map((item) => (
