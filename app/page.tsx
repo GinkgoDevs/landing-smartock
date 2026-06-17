@@ -1,9 +1,12 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { CalendlyEmbed } from "@/components/CalendlyEmbed";
-import { WistiaHeroVideo } from "@/components/WistiaHeroVideo";
+import { FeatureCarousel } from "@/components/FeatureCarousel";
+import { NavBar } from "@/components/NavBar";
 import { PricingSection } from "@/components/PricingSection";
+import { SectionLabel } from "@/components/SectionLabel";
 import { StockySection } from "@/components/StockySection";
+import { WistiaHeroVideo } from "@/components/WistiaHeroVideo";
 import type { SimpleIcon } from "simple-icons";
 import {
   siGooglesheets,
@@ -108,8 +111,8 @@ const steps = [
   },
   {
     number: "3",
-    title: "La IA empieza a ayudarte",
-    text: "Lee facturas, detecta alertas, analiza proveedores y te muestra donde se va el margen.",
+    title: "Configuras lectura de archivos PDF y CSV",
+    text: "Automatizas la carga de facturas, precios y datos operativos sin trabajo manual repetido.",
   },
 ];
 
@@ -135,35 +138,6 @@ const faqs = [
       "Si. Los planes avanzados permiten trabajar con multiples depositos, locales y usuarios desde una sola cuenta.",
   },
 ];
-
-function Logo({
-  variant = "violet",
-  iconOnly = false,
-}: {
-  variant?: "violet" | "white";
-  iconOnly?: boolean;
-}) {
-  const isWhite = variant === "white";
-
-  return (
-    <a
-      className={`logo ${isWhite ? "logoWhite" : ""} ${iconOnly ? "logoOnly" : ""}`}
-      href="#inicio"
-      aria-label="Smartock"
-    >
-      <span className="logoMark">
-        <Image
-          alt=""
-          aria-hidden="true"
-          height={500}
-          priority={!isWhite}
-          src={iconOnly ? "/brand/smartock-isotype-violet.png" : `/brand/smartock-logo-${variant}.png`}
-          width={500}
-        />
-      </span>
-    </a>
-  );
-}
 
 function IntegrationLogo({
   integration,
@@ -201,20 +175,7 @@ function IntegrationLogo({
 export default function Home() {
   return (
     <main id="inicio">
-      <nav className="nav">
-        <div className="container navInner">
-          <Logo />
-          <div className="navLinks" aria-label="Navegacion principal">
-            <a href="#funciones">Funciones</a>
-            <a href="#integraciones">Integraciones</a>
-            <a href="#planes">Planes</a>
-            <a href="#agenda">Contacto</a>
-          </div>
-          <a className="navCta" href="#agenda">
-            Comenzar
-          </a>
-        </div>
-      </nav>
+      <NavBar />
 
       <section className="hero section">
         <div className="container heroGrid">
@@ -229,26 +190,23 @@ export default function Home() {
               Centraliza operaciones, reduce errores manuales y toma decisiones con datos reales en
               un solo panel.
             </p>
+            <div className="heroActions">
+              <a className="heroPrimaryCta" href="#agenda">
+                Sí, quiero probar Smartock gratis
+              </a>
+              <a className="heroSecondaryCta" href="#planes">
+                Mirá nuestros planes
+              </a>
+            </div>
+            <p className="heroActionsNote">Demo personalizada · Sin tarjeta · Respuesta en 24hs</p>
+          </div>
+          <div className="heroVisual">
+            <WistiaHeroVideo />
           </div>
           <div className="heroProof" aria-label="Beneficios principales">
             {heroProof.map((item) => (
               <span key={item}>{item}</span>
             ))}
-          </div>
-          <div className="heroVisual">
-            <WistiaHeroVideo />
-          </div>
-          <div className="heroBottom">
-            <a className="heroMegaCta" href="#agenda">
-              <span className="heroMegaCtaGlow" aria-hidden="true" />
-              <span className="heroMegaCtaContent">
-                <span className="heroMegaCtaLabel">Sí, quiero probar Smartock gratis</span>
-                <span className="heroMegaCtaSub">Demo personalizada · Sin tarjeta · Respuesta en 24hs</span>
-              </span>
-              <span className="heroMegaCtaArrow" aria-hidden="true">
-                →
-              </span>
-            </a>
           </div>
         </div>
       </section>
@@ -393,10 +351,12 @@ export default function Home() {
 
       <section className="section features" id="funciones">
         <div className="container">
+          <SectionLabel>Funcionalidades</SectionLabel>
           <div className="sectionHeader">
             <h2>Todo lo que necesitas en un solo lugar</h2>
             <p>Funcionalidades potentes diseñadas para la realidad del comercio argentino.</p>
           </div>
+          <FeatureCarousel features={features} />
           <div className="featureGrid">
             {features.map((feature, index) => (
               <article className="featureCard" key={feature.title}>
@@ -447,31 +407,72 @@ export default function Home() {
       </section>
 
       <footer className="footer">
-        <div className="container footerGrid">
-          <div>
-            <Logo variant="white" />
-            <p>Revolucionando la gestion de PyMEs en Argentina mediante inteligencia aplicada.</p>
+        <div className="container footerInner">
+          <div className="footerGrid">
+            <div className="footerBrand">
+              <a className="footerLogoLink" href="#inicio" aria-label="Smartock — inicio">
+                <Image
+                  alt="Smartock — Gestion inteligente"
+                  className="footerLogo"
+                  height={320}
+                  src="/brand/smartock-logo-white.png"
+                  width={180}
+                />
+              </a>
+              <p>
+                Revolucionando la gestion de PyMEs en Argentina mediante inteligencia aplicada.
+              </p>
+              <a className="footerCta" href="#agenda">
+                Agendar demo gratis
+              </a>
+            </div>
+
+            <nav className="footerNav" aria-label="Enlaces de empresa">
+              <h3>Empresa</h3>
+              <ul>
+                <li>
+                  <a href="#funciones">Funciones</a>
+                </li>
+                <li>
+                  <a href="#integraciones">Integraciones</a>
+                </li>
+                <li>
+                  <a href="#planes">Planes</a>
+                </li>
+                <li>
+                  <a href="#agenda">Contacto</a>
+                </li>
+              </ul>
+            </nav>
+
+            <nav className="footerNav" aria-label="Enlaces legales">
+              <h3>Legal</h3>
+              <ul>
+                <li>
+                  <a href="#">Privacidad</a>
+                </li>
+                <li>
+                  <a href="#">Terminos</a>
+                </li>
+              </ul>
+            </nav>
+
+            <div className="footerNewsletter">
+              <h3>Newsletter</h3>
+              <p>Recibí novedades, tips de gestion y lanzamientos de Smartock.</p>
+              <form className="newsletterForm">
+                <input aria-label="Email newsletter" placeholder="Tu email" type="email" />
+                <button type="submit" aria-label="Suscribirse">
+                  Enviar
+                </button>
+              </form>
+            </div>
           </div>
-          <div>
-            <h3>Empresa</h3>
-            <a href="#funciones">Funciones</a>
-            <a href="#planes">Planes</a>
-            <a href="#agenda">Contacto</a>
-          </div>
-          <div>
-            <h3>Legal</h3>
-            <a href="#">Privacidad</a>
-            <a href="#">Terminos</a>
-          </div>
-          <div>
-            <h3>Newsletter</h3>
-            <form className="newsletterForm">
-              <input aria-label="Email newsletter" placeholder="Tu email" type="email" />
-              <button type="submit">Enviar</button>
-            </form>
+
+          <div className="footerBottom">
+            <p className="copyright">© 2026 Smartock. Gestion inteligente para PyMEs argentinas.</p>
           </div>
         </div>
-        <p className="copyright">© 2026 Smartock. Gestion inteligente para PyMEs argentinas.</p>
       </footer>
     </main>
   );

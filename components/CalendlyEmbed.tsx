@@ -10,6 +10,7 @@ export function CalendlyEmbed() {
       <div
         className="calendly-inline-widget calendlyWidget"
         data-url={CALENDLY_URL}
+        data-resize="true"
       />
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
