@@ -1,3 +1,6 @@
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+
 :root {
   --surface: #fcf8ff;
   --surface-lowest: #ffffff;
@@ -28,6 +31,12 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 78px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -286,16 +295,134 @@ h3 {
   gap: 8px;
 }
 
-.heroActions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+.heroMegaCta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  width: min(100%, 520px);
+  min-height: 68px;
+  padding: 16px 22px 16px 26px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 55%, #9b30d4 100%);
+  color: white;
+  text-decoration: none;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+    0 20px 50px rgba(82, 0, 136, 0.38),
+    0 8px 24px rgba(114, 9, 183, 0.28);
+  overflow: hidden;
+  animation: heroCtaPulse 2.8s ease-in-out infinite;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
 }
 
-.heroActions .button {
-  min-height: 48px;
-  padding-inline: 28px;
+.heroMegaCta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 62%
+  );
+  transform: translateX(-120%);
+  animation: heroCtaShimmer 3.6s ease-in-out infinite;
+}
+
+.heroMegaCtaGlow {
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 62%);
+  pointer-events: none;
+}
+
+.heroMegaCtaContent {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 3px;
+  flex: 1;
+  text-align: left;
+}
+
+.heroMegaCtaLabel {
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.heroMegaCtaSub {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.86);
+  letter-spacing: 0.01em;
+}
+
+.heroMegaCtaArrow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.heroMegaCta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 28px 60px rgba(82, 0, 136, 0.44),
+    0 12px 32px rgba(114, 9, 183, 0.34);
+}
+
+.heroMegaCta:hover .heroMegaCtaArrow {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.heroMegaCta:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+@keyframes heroCtaPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+      0 20px 50px rgba(82, 0, 136, 0.38),
+      0 8px 24px rgba(114, 9, 183, 0.28);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 24px 58px rgba(82, 0, 136, 0.48),
+      0 10px 30px rgba(114, 9, 183, 0.36);
+  }
+}
+
+@keyframes heroCtaShimmer {
+  0%,
+  72%,
+  100% {
+    transform: translateX(-120%);
+  }
+
+  88% {
+    transform: translateX(120%);
+  }
 }
 
 .heroProof {
@@ -347,11 +474,23 @@ h3 {
     0 1px 0 rgba(255, 255, 255, 0.8) inset;
 }
 
-.productPreviewImage {
+.productPreviewVideo {
+  background: #12001f;
+}
+
+.wistiaPlayerShell {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.wistiaPlayerShell wistia-player {
   display: block;
   width: 100%;
-  height: auto;
-  object-fit: contain;
+}
+
+.productPreviewVideo .productPreviewBadge {
+  z-index: 2;
+  pointer-events: none;
 }
 
 @keyframes heroFloat {
@@ -726,7 +865,7 @@ h3 {
 
 .metricsGrid {
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1fr);
+  grid-template-columns: minmax(520px, 1fr) minmax(0, 0.82fr);
   align-items: center;
   gap: 48px;
 }
@@ -747,8 +886,10 @@ h3 {
 }
 
 .statCard {
-  display: grid;
+  display: flex;
+  flex-direction: column-reverse;
   align-content: center;
+  gap: 12px;
   min-height: 184px;
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 28px;
@@ -759,7 +900,7 @@ h3 {
 
 .statCard strong {
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   color: white;
   font-size: clamp(48px, 5vw, 68px);
   line-height: 0.9;
@@ -1218,6 +1359,7 @@ ul {
 }
 
 .contactForm button,
+.contactForm .contactFormCta,
 .newsletterForm button {
   border: 0;
   border-radius: 14px;
@@ -1227,8 +1369,26 @@ ul {
   font-weight: 800;
 }
 
-.contactForm button {
+.contactForm button,
+.contactForm .contactFormCta {
   padding: 14px 18px;
+}
+
+.calendlySection {
+  background: var(--surface-low);
+}
+
+.calendlyCard {
+  overflow: hidden;
+  margin-top: 40px;
+  border-radius: 28px;
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.calendlyWidget {
+  min-width: 320px;
+  height: 700px;
 }
 
 .footer {
@@ -1341,6 +1501,18 @@ ul {
 
   .statGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .statCard {
+    flex-direction: column;
+  }
+
+  .metricsGrid .statGrid {
+    order: 2;
+  }
+
+  .metricsGrid > div:not(.statGrid) {
+    order: 1;
   }
 
   .pricingGrid {
@@ -1488,7 +1660,6 @@ ul {
     font-size: 16px;
   }
 
-  .heroActions,
   .heroProof {
     justify-content: flex-start;
   }
@@ -1511,10 +1682,6 @@ ul {
     border-radius: 22px;
   }
 
-  .productPreviewImage {
-    height: 220px;
-  }
-
   .productPreviewBadge {
     right: 12px;
     bottom: 12px;
@@ -1525,7 +1692,6 @@ ul {
     font-size: 12px;
   }
 
-  .heroActions,
   .contactForm {
     flex-direction: column;
   }
@@ -1628,14 +1794,25 @@ ul {
     line-height: 1.55;
   }
 
-  .heroActions .button {
-    min-height: 44px;
-    padding-inline: 20px;
+  .heroMegaCta {
+    width: 100%;
+    min-height: 64px;
+    padding: 14px 18px 14px 20px;
+    gap: 12px;
   }
 
-  .productPreviewImage {
-    height: 210px;
-    object-fit: cover;
+  .heroMegaCtaLabel {
+    font-size: 16px;
+  }
+
+  .heroMegaCtaSub {
+    font-size: 11px;
+  }
+
+  .heroMegaCtaArrow {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
   }
 
   .productPreviewBadge {

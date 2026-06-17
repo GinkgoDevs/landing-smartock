@@ -1,5 +1,9 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { CalendlyEmbed } from "@/components/CalendlyEmbed";
+import { WistiaHeroVideo } from "@/components/WistiaHeroVideo";
+import { PricingSection } from "@/components/PricingSection";
+import { StockySection } from "@/components/StockySection";
 import type { SimpleIcon } from "simple-icons";
 import {
   siGooglesheets,
@@ -55,40 +59,6 @@ const features = [
   {
     title: "Multi-sucursal",
     text: "Controla multiples locales y depositos desde una sola cuenta maestra.",
-  },
-];
-
-const plans = [
-  {
-    name: "Smart",
-    price: "$15.000",
-    description: "Ideal para emprendedores y comercios chicos.",
-    items: ["Gestion de Stock basica", "Punto de Venta (POS)", "1 Sucursal", "Soporte por Email"],
-  },
-  {
-    name: "Pro",
-    price: "$28.000",
-    description: "Para PyMEs que necesitan facturacion legal y reportes.",
-    recommended: true,
-    items: [
-      "Facturacion electronica ARCA/AFIP",
-      "Multiples depositos",
-      "Reportes de ventas avanzados",
-      "Gestion de gastos",
-      "Soporte prioritario",
-    ],
-  },
-  {
-    name: "IA Premium",
-    price: "$45.000",
-    description: "La potencia total de la IA para una automatizacion maxima.",
-    items: [
-      "Todas las funciones de IA",
-      "WhatsApp Inbox integrado",
-      "Importacion de facturas automatica",
-      "API de integracion",
-      "Account Manager dedicado",
-    ],
   },
 ];
 
@@ -228,25 +198,6 @@ function IntegrationLogo({
   );
 }
 
-function DashboardPreview() {
-  return (
-    <div className="productPreview" aria-label="Vista previa del dashboard Smartock">
-      <Image
-        alt="Dashboard de Smartock con acciones rapidas y alertas de stock, cobranzas y facturacion"
-        className="productPreviewImage"
-        height={466}
-        priority
-        src="/product/smartock-dashboard-hero.png"
-        width={1024}
-      />
-      <div className="productPreviewBadge">
-        <span>Dashboard real</span>
-        <strong>Stock, caja y alertas en vivo</strong>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <main id="inicio">
@@ -257,9 +208,9 @@ export default function Home() {
             <a href="#funciones">Funciones</a>
             <a href="#integraciones">Integraciones</a>
             <a href="#planes">Planes</a>
-            <a href="#contacto">Contacto</a>
+            <a href="#agenda">Contacto</a>
           </div>
-          <a className="navCta" href="#contacto">
+          <a className="navCta" href="#agenda">
             Comenzar
           </a>
         </div>
@@ -285,17 +236,19 @@ export default function Home() {
             ))}
           </div>
           <div className="heroVisual">
-            <DashboardPreview />
+            <WistiaHeroVideo />
           </div>
           <div className="heroBottom">
-            <div className="heroActions">
-              <a className="button primary" href="#contacto">
-                Comenzar ahora
-              </a>
-              <a className="button secondary" href="#funciones">
-                Ver demo
-              </a>
-            </div>
+            <a className="heroMegaCta" href="#agenda">
+              <span className="heroMegaCtaGlow" aria-hidden="true" />
+              <span className="heroMegaCtaContent">
+                <span className="heroMegaCtaLabel">Sí, quiero probar Smartock gratis</span>
+                <span className="heroMegaCtaSub">Demo personalizada · Sin tarjeta · Respuesta en 24hs</span>
+              </span>
+              <span className="heroMegaCtaArrow" aria-hidden="true">
+                →
+              </span>
+            </a>
           </div>
         </div>
       </section>
@@ -360,10 +313,6 @@ export default function Home() {
 
       <section className="section metrics">
         <div className="container metricsGrid">
-          <div>
-            <p className="eyebrow darkEyebrow">Validacion y control operativo</p>
-            <h2>Menos tareas repetidas. Mas decisiones con datos.</h2>
-          </div>
           <div className="statGrid">
             {stats.map(([value, text]) => (
               <article className="statCard" key={value}>
@@ -372,8 +321,14 @@ export default function Home() {
               </article>
             ))}
           </div>
+          <div>
+            <p className="eyebrow darkEyebrow">Validacion y control operativo</p>
+            <h2>Menos tareas repetidas. Mas decisiones con datos.</h2>
+          </div>
         </div>
       </section>
+
+      <StockySection />
 
       <section className="section industries">
         <div className="container">
@@ -455,38 +410,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section pricing" id="planes">
-        <div className="container">
-          <div className="sectionHeader">
-            <h2>Planes diseñados para crecer</h2>
-            <p>Sin costos ocultos, cancela cuando quieras.</p>
-          </div>
-          <div className="pricingGrid">
-            {plans.map((plan) => (
-              <article className={`planCard ${plan.recommended ? "recommended" : ""}`} key={plan.name}>
-                {plan.recommended ? <span className="recommendedBadge">Recomendado</span> : null}
-                <h3>{plan.name}</h3>
-                <p className="price">
-                  {plan.price}
-                  <span>/mes</span>
-                </p>
-                <p className="planDescription">{plan.description}</p>
-                <ul>
-                  {plan.items.map((item) => (
-                    <li key={item}>
-                      <span aria-hidden="true">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <a className="button planButton" href="#contacto">
-                  Elegir {plan.name}
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PricingSection />
 
       <section className="section faq">
         <div className="container faqGrid">
@@ -509,19 +433,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section finalCta" id="contacto">
+      <section className="section calendlySection" id="agenda" aria-label="Agendar demo">
         <div className="container">
-          <div className="ctaCard">
-            <p className="eyebrow">Listo para ordenar tu operacion</p>
-            <h2>Transforma tu comercio con una demo personalizada</h2>
-            <p>
-              Contanos que tipo de negocio tenes y te mostramos como Smartock puede ayudarte a
-              controlar stock, caja, facturacion y rentabilidad desde el primer dia.
-            </p>
-            <form className="contactForm">
-              <input aria-label="Email" placeholder="tu@email.com" type="email" />
-              <button type="submit">Solicitar demo</button>
-            </form>
+          <div className="sectionHeader">
+            <p className="eyebrow centeredEyebrow">Agendá tu demo</p>
+            <h2>Elegí el horario que mejor te quede</h2>
+            <p>Reservá una llamada con nuestro equipo y te mostramos Smartock en acción.</p>
+          </div>
+          <div className="calendlyCard">
+            <CalendlyEmbed />
           </div>
         </div>
       </section>
@@ -536,7 +456,7 @@ export default function Home() {
             <h3>Empresa</h3>
             <a href="#funciones">Funciones</a>
             <a href="#planes">Planes</a>
-            <a href="#contacto">Contacto</a>
+            <a href="#agenda">Contacto</a>
           </div>
           <div>
             <h3>Legal</h3>
