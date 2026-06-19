@@ -10,17 +10,7 @@ const navLinks = [
 function Logo() {
   return (
     <a className="logo" href="#inicio" aria-label="Smartock">
-      <span className="logoMark logoMarkFull">
-        <Image
-          alt=""
-          aria-hidden="true"
-          height={500}
-          priority
-          src="/brand/smartock-logo-violet.png"
-          width={500}
-        />
-      </span>
-      <span className="logoMark logoMarkIcon">
+      <span className="logoMark">
         <Image
           alt=""
           aria-hidden="true"
@@ -30,6 +20,7 @@ function Logo() {
           width={500}
         />
       </span>
+      <span className="logoWordmark">Smartock</span>
     </a>
   );
 }
