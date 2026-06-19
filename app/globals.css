@@ -22,6 +22,7 @@
   --error: #ba1a1a;
   --shadow: 0 20px 60px rgba(82, 0, 136, 0.12);
   --container: 1180px;
+  --nav-offset: 80px;
 }
 
 * {
@@ -89,17 +90,17 @@ body.navMenuOpen {
 }
 
 .navSpacer {
-  height: 80px;
+  height: var(--nav-offset);
 }
 
 .nav {
-  border: 1px solid rgba(208, 194, 213, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(18px) saturate(140%);
+  background: rgba(255, 248, 255, 0.5);
+  backdrop-filter: blur(24px) saturate(160%);
   box-shadow:
-    0 8px 32px rgba(26, 26, 40, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    0 8px 32px rgba(82, 0, 136, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .navInner {
@@ -262,7 +263,8 @@ body.navMenuOpen {
 
 .hero {
   min-height: 100svh;
-  padding-top: 104px;
+  margin-top: calc(-1 * var(--nav-offset));
+  padding-top: calc(104px + var(--nav-offset));
   padding-bottom: 56px;
   background:
     radial-gradient(circle at 88% 12%, rgba(114, 9, 183, 0.22), transparent 34%),
@@ -1724,7 +1726,7 @@ ul {
 @media (min-width: 768px) {
   .hero {
     min-height: auto;
-    padding-top: 40px;
+    padding-top: calc(40px + var(--nav-offset));
     padding-bottom: 80px;
   }
 
@@ -1772,8 +1774,12 @@ ul {
 }
 
 @media (max-width: 767px) {
+  :root {
+    --nav-offset: 68px;
+  }
+
   .navSpacer {
-    height: 68px;
+    height: var(--nav-offset);
   }
 
   html {
@@ -1821,7 +1827,7 @@ ul {
 
   .hero {
     min-height: auto;
-    padding-top: 20px;
+    padding-top: calc(20px + var(--nav-offset));
     padding-bottom: 64px;
   }
 
@@ -2198,7 +2204,7 @@ ul {
   }
 
   .hero {
-    padding-top: 16px;
+    padding-top: calc(16px + var(--nav-offset));
     padding-bottom: 48px;
   }
 
