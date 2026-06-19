@@ -110,7 +110,7 @@ export function StockySection() {
   return (
     <section
       id="stocky"
-      className="relative scroll-mt-[78px] overflow-hidden bg-linear-to-b from-white via-[#fcf8ff] to-white py-14 md:py-16 lg:py-20"
+      className="relative scroll-mt-[78px] overflow-hidden bg-linear-to-b from-white via-[#fcf8ff] to-white py-10 md:py-16 lg:py-20"
       aria-labelledby="stocky-heading"
     >
       <div
@@ -118,7 +118,7 @@ export function StockySection() {
         className="pointer-events-none absolute top-0 left-1/2 h-64 w-[min(100%,720px)] -translate-x-1/2 rounded-full bg-[#520088]/4 blur-3xl"
       />
 
-      <div className="relative mx-auto w-[min(calc(100%-clamp(24px,5vw,72px)),1180px)]">
+      <div className="container relative">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-12 xl:gap-14">
           <div className="flex min-w-0 flex-col gap-5 lg:gap-6">
             <span className="inline-flex w-fit items-center rounded-full border border-[#520088]/12 bg-[#520088]/6 px-3.5 py-1.5 text-xs font-bold tracking-[0.06em] text-[#520088] uppercase">

@@ -23,6 +23,7 @@
   --shadow: 0 20px 60px rgba(82, 0, 136, 0.12);
   --container: 1180px;
   --nav-offset: 80px;
+  --page-gutter: clamp(16px, 4vw, 72px);
 }
 
 * {
@@ -65,7 +66,7 @@ input {
 }
 
 .container {
-  width: min(calc(100% - clamp(24px, 5vw, 72px)), var(--container));
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--container));
   margin: 0 auto;
 }
 
@@ -654,7 +655,7 @@ h3 {
 }
 
 .integrationStrip p {
-  width: min(calc(100% - 32px), var(--container));
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--container));
   margin: 0 auto 22px;
   color: var(--on-surface-variant);
   text-align: center;
@@ -1776,6 +1777,7 @@ ul {
 @media (max-width: 767px) {
   :root {
     --nav-offset: 68px;
+    --page-gutter: 14px;
   }
 
   .navSpacer {
@@ -1856,8 +1858,8 @@ ul {
   }
 
   h1 {
-    font-size: clamp(1.75rem, 7.2vw, 2.25rem);
-    line-height: 1.1;
+    font-size: clamp(1.875rem, 8vw, 2.5rem);
+    line-height: 1.08;
     letter-spacing: -0.04em;
   }
 
@@ -2183,12 +2185,12 @@ ul {
 }
 
 @media (max-width: 520px) {
-  .container {
-    width: min(calc(100% - 20px), var(--container));
+  :root {
+    --page-gutter: 10px;
   }
 
   .section {
-    padding: clamp(52px, 12vw, 68px) 0;
+    padding: clamp(44px, 10vw, 60px) 0;
   }
 
   .navInner {
@@ -2209,8 +2211,8 @@ ul {
   }
 
   h1 {
-    font-size: clamp(1.625rem, 6.8vw, 2rem);
-    line-height: 1.12;
+    font-size: clamp(1.75rem, 7.5vw, 2.25rem);
+    line-height: 1.1;
   }
 
   .heroLead {

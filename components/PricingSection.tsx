@@ -445,7 +445,7 @@ export function PricingSection() {
       id="planes"
       aria-labelledby="pricing-heading"
     >
-      <div className="mx-auto w-[min(calc(100%-clamp(24px,5vw,72px)),1180px)]">
+      <div className="container">
         <SectionLabel>Precios</SectionLabel>
 
         <div className="mx-auto mb-8 max-w-2xl text-center md:mb-10">
