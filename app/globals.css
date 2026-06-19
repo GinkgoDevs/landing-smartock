@@ -138,25 +138,26 @@ body.navMenuOpen {
 }
 
 .logoMark.logoMarkFull {
-  display: none;
-  width: 76px;
-  height: 62px;
+  display: inline-flex;
+  width: clamp(136px, 30vw, 160px);
+  height: auto;
 }
 
 .logoMark.logoMarkFull img {
-  width: 76px;
-  height: 76px;
+  width: 100%;
+  height: auto;
+  max-height: 56px;
 }
 
 .logoMark.logoMarkIcon {
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
+  display: none;
+  width: 44px;
+  height: 44px;
 }
 
 .logoMark.logoMarkIcon img {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
 }
 
 .logoOnly .logoMark {
@@ -1713,18 +1714,11 @@ ul {
 
 @media (min-width: 640px) {
   .logoMark.logoMarkFull {
-    display: inline-flex;
-    width: 58px;
-    height: 58px;
+    width: clamp(156px, 13vw, 180px);
   }
 
   .logoMark.logoMarkFull img {
-    width: 58px;
-    height: 58px;
-  }
-
-  .logoMark.logoMarkIcon {
-    display: none;
+    max-height: 62px;
   }
 
   .navLinks {
@@ -2200,14 +2194,12 @@ ul {
     padding: 5px 10px;
   }
 
-  .logoMark.logoMarkIcon {
-    width: 32px;
-    height: 32px;
+  .logoMark.logoMarkFull {
+    width: clamp(126px, 34vw, 150px);
   }
 
-  .logoMark.logoMarkIcon img {
-    width: 32px;
-    height: 32px;
+  .logoMark.logoMarkFull img {
+    max-height: 50px;
   }
 
   .hero {

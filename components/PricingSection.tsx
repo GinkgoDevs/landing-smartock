@@ -34,6 +34,10 @@ const plans: Plan[] = [
     cta: "Solicitar demo",
     groups: [
       {
+        label: "Límites incluidos",
+        items: ["Hasta 5.000 productos", "1 usuario"],
+      },
+      {
         label: "Funciones principales",
         items: [
           "Gestión de stock",
@@ -57,6 +61,10 @@ const plans: Plan[] = [
     recommended: true,
     cta: "Solicitar demo",
     groups: [
+      {
+        label: "Límites incluidos",
+        items: ["Hasta 30.000 productos", "5 usuarios"],
+      },
       {
         label: "Funciones principales",
         items: [
@@ -85,6 +93,10 @@ const plans: Plan[] = [
     premium: true,
     cta: "Consultar plan",
     groups: [
+      {
+        label: "Límites incluidos",
+        items: ["Hasta 50.000 productos", "15 usuarios"],
+      },
       {
         label: "Funciones principales",
         items: ["Todo lo del plan Pro"],
