@@ -1,15 +1,15 @@
 import Image from "next/image";
 
 const navLinks = [
-  { href: "#funciones", label: "Funciones" },
-  { href: "#integraciones", label: "Integraciones" },
-  { href: "#planes", label: "Planes" },
-  { href: "#agenda", label: "Contacto" },
+  { href: "/#funciones", label: "Funciones" },
+  { href: "/#integraciones", label: "Integraciones" },
+  { href: "/#planes", label: "Planes" },
+  { href: "/#agenda", label: "Contacto" },
 ];
 
 function Logo() {
   return (
-    <a className="logo" href="#inicio" aria-label="Smartock">
+    <a className="logo" href="/" aria-label="Smartock">
       <span className="logoMark">
         <Image
           alt=""
@@ -39,7 +39,7 @@ export function NavBar() {
                 </a>
               ))}
             </div>
-            <a className="navCta navCtaPill" href="#agenda">
+            <a className="navCta navCtaPill" href="/#agenda">
               Comenzar
             </a>
           </div>

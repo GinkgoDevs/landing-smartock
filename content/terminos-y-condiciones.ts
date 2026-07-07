@@ -1,0 +1,338 @@
+export type LegalSection = {
+  id: number;
+  title: string;
+  paragraphs: string[];
+  listIntro?: string;
+  items?: string[];
+  trailingParagraphs?: string[];
+};
+
+export const termsTitle = `Términos y Condiciones de Smartock`;
+
+export const termsUpdated = `7 de julio de 2026`;
+
+export const termsIntro = [
+  `Los presentes Términos y Condiciones regulan el acceso, contratación y uso de Smartock, una plataforma digital de gestión comercial para comercios y empresas.`,
+  `Al contratar, acceder o utilizar Smartock, el cliente declara haber leído, comprendido y aceptado estos Términos y Condiciones, junto con las políticas complementarias que resulten aplicables.`,
+] as const;
+
+export const termsSections: LegalSection[] = [
+  {
+    id: 1,
+    title: `Identificación del responsable`,
+    paragraphs: [
+      `Smartock es una plataforma digital desarrollada, operada y comercializada por Ginkgo Devs, nombre comercial utilizado por el equipo responsable del desarrollo, mantenimiento y comercialización del producto.`,
+      `A los efectos legales, administrativos, fiscales y de contacto, el responsable actual de Smartock es Nicolás Alonso, CUIT 20-41950666-5, quien actúa como titular responsable del servicio hasta tanto se constituya o informe una estructura jurídica distinta.`,
+      `Ginkgo Devs no se presenta, al momento de publicación de estos términos, como una sociedad legalmente constituida, sino como el nombre comercial del equipo desarrollador del producto.`,
+      `Smartock es una marca y producto desarrollado por Ginkgo Devs.`,
+      `Canales oficiales de contacto:`,
+      `Correo electrónico: ginkgodevs@gmail.com
+WhatsApp / teléfono: +54 9 381 566-7690`,
+    ],
+  },
+  {
+    id: 2,
+    title: `Sobre Smartock`,
+    paragraphs: [
+      `Smartock es una plataforma SaaS de gestión comercial para comercios y empresas, desarrollada para ayudar a centralizar y administrar stock, ventas, caja, clientes, cuentas corrientes, proveedores, compras, facturación, reportes y otros procesos operativos del negocio.`,
+      `El servicio está orientado principalmente a comercios, empresas y unidades de negocio que necesitan gestionar productos, sucursales, usuarios, ventas diarias, movimientos de stock y procesos administrativos vinculados a su actividad comercial.`,
+      `Smartock puede incluir funcionalidades de inteligencia artificial, carga asistida de información, procesamiento de facturas, procesamiento de listas de precios y asistencia por WhatsApp mediante Stocky, el asistente inteligente de Smartock.`,
+    ],
+  },
+  {
+    id: 3,
+    title: `Alcance territorial`,
+    paragraphs: [
+      `Inicialmente, Smartock se encuentra disponible para clientes ubicados en la República Argentina.`,
+      `Sin perjuicio de ello, Smartock podrá expandirse en el futuro a otros países de habla hispana. En ese caso, podrán aplicarse condiciones comerciales, fiscales, técnicas o legales particulares según la jurisdicción correspondiente.`,
+    ],
+  },
+  {
+    id: 4,
+    title: `Tipo de cliente`,
+    paragraphs: [
+      `Smartock está orientado a comercios, empresas, profesionales, organizaciones y unidades de negocio que contratan la plataforma para el desarrollo de su actividad comercial.`,
+      `El servicio no está pensado como una solución de consumo personal o familiar, sino como una herramienta de gestión empresarial o comercial.`,
+    ],
+  },
+  {
+    id: 5,
+    title: `Contratación y activación del servicio`,
+    paragraphs: [
+      `En esta primera etapa, la contratación de Smartock se realiza mediante un proceso asistido que puede incluir contacto comercial, demostración del producto, validación de necesidades del cliente, configuración inicial y activación manual de la cuenta.`,
+      `Smartock podrá solicitar información del comercio, rubro, cantidad de sucursales, cantidad aproximada de productos, sistema actual, datos de contacto y otros datos necesarios para preparar la demo, configurar la cuenta o emitir la propuesta comercial.`,
+      `En el futuro, Smartock podrá incorporar procesos de registro, contratación u onboarding autónomo o self-service.`,
+    ],
+  },
+  {
+    id: 6,
+    title: `Período inicial bonificado`,
+    paragraphs: [
+      `Smartock podrá ofrecer, según la promoción vigente, un período inicial bonificado de quince días corridos.`,
+      `Finalizado dicho período, la continuidad del servicio quedará sujeta a la contratación de un plan pago y al cumplimiento de las condiciones comerciales informadas al cliente.`,
+      `El período bonificado no será canjeable por dinero ni generará derecho a compensación económica en caso de no contratación posterior.`,
+    ],
+  },
+  {
+    id: 7,
+    title: `Cuentas, sucursales y usuarios`,
+    paragraphs: [
+      `Cada cliente de Smartock contará con una cuenta propia dentro de la plataforma. Dicha cuenta podrá incluir una o más sucursales, según el plan contratado y las condiciones comerciales acordadas.`,
+      `Los precios de Smartock se establecen, salvo indicación expresa en contrario, de forma mensual y por sucursal activa.`,
+      `Dentro de cada cuenta, el cliente podrá contar con distintos usuarios internos, tales como administradores, operadores u otros perfiles disponibles en la plataforma.`,
+      `A cada usuario podrán asignarse permisos específicos según sus funciones dentro del comercio o empresa.`,
+      `El cliente será responsable de administrar correctamente los accesos otorgados a sus usuarios, así como de definir qué personas pueden ingresar a la plataforma y qué acciones pueden realizar dentro del sistema.`,
+    ],
+  },
+  {
+    id: 8,
+    title: `Responsabilidad por el uso de usuarios internos`,
+    paragraphs: [
+      `El cliente reconoce que las operaciones realizadas desde los usuarios vinculados a su cuenta se considerarán realizadas bajo su responsabilidad, salvo que pueda demostrarse un error técnico atribuible directamente a Smartock.`,
+      `Los usuarios deberán mantener la confidencialidad de sus credenciales de acceso y no compartir sus contraseñas con terceros.`,
+      `Smartock no será responsable por daños, pérdidas de información, modificaciones, movimientos, ventas, ajustes de stock, cambios de precios o cualquier otra acción realizada como consecuencia del uso indebido de credenciales por parte del cliente, sus empleados, colaboradores o terceros autorizados o no autorizados.`,
+    ],
+  },
+  {
+    id: 9,
+    title: `Planes, precios y condiciones comerciales`,
+    paragraphs: [
+      `Smartock ofrece distintos planes comerciales, cuyas funcionalidades, límites, condiciones y valores serán informados al cliente al momento de la contratación, a través de la propuesta comercial, sitio web, comunicación oficial o medio de contratación correspondiente.`,
+      `Smartock podrá ofrecer planes mensuales, semestrales, anuales o condiciones comerciales personalizadas.`,
+      `Para clientes con más de tres sucursales, Smartock podrá ofrecer condiciones comerciales personalizadas, descuentos por volumen o propuestas especiales, sujetas a evaluación y aprobación comercial.`,
+      `Las funcionalidades, límites, usuarios incluidos, cantidad de productos, disponibilidad de Stocky, extracciones IA, soporte, integraciones u otros beneficios podrán variar según el plan contratado.`,
+    ],
+  },
+  {
+    id: 10,
+    title: `Pago del servicio`,
+    paragraphs: [
+      `El pago del servicio se realiza por adelantado.`,
+      `La continuidad del acceso a la plataforma quedará sujeta a la acreditación del pago correspondiente al período contratado.`,
+      `Los medios de pago inicialmente disponibles serán transferencia bancaria o depósito bancario.`,
+      `Smartock podrá incorporar, modificar o discontinuar medios de pago adicionales, tales como pasarelas de pago, tarjetas, débito automático u otros mecanismos, informándolo oportunamente al cliente cuando corresponda.`,
+      `Los importes, impuestos, percepciones, retenciones o cargos fiscales aplicables serán informados según corresponda en la propuesta comercial, factura, comprobante o comunicación administrativa correspondiente, de acuerdo con la normativa fiscal vigente y la condición tributaria del responsable emisor.`,
+    ],
+  },
+  {
+    id: 11,
+    title: `Falta de pago y suspensión del servicio`,
+    paragraphs: [
+      `En caso de falta de pago, Smartock podrá otorgar un plazo de gracia de hasta cinco días corridos desde el vencimiento correspondiente.`,
+      `Transcurrido dicho plazo sin registrarse la acreditación del pago, Smartock podrá suspender, limitar o bloquear total o parcialmente el acceso a la cuenta hasta que se regularice la situación.`,
+      `La reactivación del servicio suspendido por falta de pago podrá quedar sujeta a la cancelación de los importes pendientes, cargos administrativos aplicables, condiciones comerciales vigentes y verificación de acreditación del pago.`,
+      `La suspensión por falta de pago no implicará, por sí sola, la eliminación inmediata de los datos del cliente.`,
+    ],
+  },
+  {
+    id: 12,
+    title: `Actualización de precios`,
+    paragraphs: [
+      `Smartock podrá actualizar sus precios, planes, promociones, límites de uso, funcionalidades incluidas o condiciones comerciales, de acuerdo con la evolución del producto, costos operativos, mejoras incorporadas, condiciones de mercado o decisiones comerciales.`,
+      `Toda actualización de precios aplicable a clientes activos será informada con una anticipación mínima de treinta días corridos, a través de los canales de contacto informados por el cliente, correo electrónico, WhatsApp, propuesta comercial, panel de administración o cualquier otro medio oficial utilizado por Smartock.`,
+      `En planes mensuales, el nuevo precio aplicará a partir del siguiente período de facturación posterior al aviso correspondiente.`,
+      `En planes semestrales o anuales ya abonados, el precio contratado se mantendrá vigente hasta la finalización del período pago. La actualización de precio, en caso de corresponder, aplicará recién al momento de la renovación.`,
+      `Las promociones, descuentos o bonificaciones podrán modificarse, suspenderse o finalizarse para nuevas contrataciones, sin afectar los períodos ya abonados por clientes activos.`,
+    ],
+  },
+  {
+    id: 13,
+    title: `Promociones semestrales y anuales`,
+    paragraphs: [
+      `Smartock podrá ofrecer promociones comerciales por tiempo limitado, tales como períodos bonificados, descuentos por contratación anticipada, planes semestrales, planes anuales u otras condiciones especiales.`,
+      `Actualmente, Smartock podrá ofrecer una promoción de contratación semestral con un mes bonificado y una promoción de contratación anual con cuatro meses bonificados.`,
+      `Estas promociones podrán modificarse, suspenderse o finalizarse en cualquier momento para nuevas contrataciones, sin afectar los períodos ya abonados por clientes activos.`,
+      `Las promociones no serán acumulables entre sí, salvo indicación expresa en contrario.`,
+    ],
+  },
+  {
+    id: 14,
+    title: `Soporte`,
+    paragraphs: [
+      `El soporte de Smartock se brinda de lunes a viernes, de 9:00 a 18:00 horas, excepto feriados o días no laborables.`,
+      `El soporte podrá brindarse a través de los canales oficiales informados por Ginkgo Devs, tales como WhatsApp, correo electrónico, llamada, videollamada u otros medios disponibles.`,
+      `El soporte tiene como finalidad asistir al cliente en el uso de la plataforma, resolver incidencias técnicas, orientar sobre configuraciones y acompañar la operación general del servicio.`,
+      `El soporte no incluye, salvo acuerdo específico, tareas contables, asesoramiento fiscal, carga masiva de información, administración interna del comercio, auditorías, desarrollo de funcionalidades a medida, integraciones especiales o soporte directo a clientes finales del comercio.`,
+    ],
+  },
+  {
+    id: 15,
+    title: `Disponibilidad de la plataforma`,
+    paragraphs: [
+      `Smartock procurará mantener la plataforma disponible y operativa de forma continua, aplicando medidas técnicas razonables para asegurar la estabilidad del servicio.`,
+      `Sin embargo, el cliente reconoce que el acceso puede verse afectado por tareas de mantenimiento, actualizaciones, fallas de internet, interrupciones de proveedores externos, problemas de servidores, fallas de servicios de terceros, errores de configuración, fuerza mayor u otros eventos ajenos al control directo de Ginkgo Devs.`,
+      `Smartock podrá realizar tareas de mantenimiento preventivo, correctivo o evolutivo, procurando minimizar el impacto en la operación del cliente.`,
+    ],
+  },
+  {
+    id: 16,
+    title: `Uso permitido de Smartock`,
+    paragraphs: [
+      `El cliente se compromete a utilizar Smartock de forma lícita, responsable y conforme a estos Términos y Condiciones.`,
+    ],
+    listIntro: `Queda prohibido:`,
+    items: [
+      `utilizar la plataforma para fines ilegales, fraudulentos o no autorizados`,
+      `intentar vulnerar la seguridad del sistema`,
+      `acceder a cuentas, datos o información de terceros sin autorización`,
+      `copiar, revender, sublicenciar, clonar o explotar comercialmente Smartock sin autorización expresa`,
+      `realizar ingeniería inversa, scraping, extracción masiva o manipulación técnica no autorizada`,
+      `interferir con el funcionamiento de la plataforma`,
+      `cargar información falsa, maliciosa o que vulnere derechos de terceros`,
+      `utilizar automatizaciones, bots o herramientas externas que afecten la estabilidad del servicio`,
+    ],
+  },
+  {
+    id: 17,
+    title: `Suspensión o baja por uso indebido`,
+    paragraphs: [
+    ],
+    listIntro: `Smartock podrá suspender, limitar o bloquear total o parcialmente el acceso a una cuenta cuando detecte o exista sospecha razonable de:`,
+    items: [
+      `falta de pago del servicio`,
+      `uso indebido de la plataforma`,
+      `intento de vulnerar la seguridad del sistema`,
+      `acceso no autorizado`,
+      `uso fraudulento, abusivo o contrario a estos términos`,
+      `acciones que puedan afectar la estabilidad, seguridad o funcionamiento de Smartock`,
+      `utilización del servicio para fines ilegales o no autorizados`,
+    ],
+    trailingParagraphs: [
+      `En casos graves, Smartock podrá resolver la baja de la cuenta, sin que ello genere derecho automático a devolución`,
+    ],
+  },
+  {
+    id: 18,
+    title: `Información cargada por el cliente`,
+    paragraphs: [
+      `El cliente será responsable por la exactitud, veracidad, actualización y legalidad de la información que cargue en Smartock.`,
+      `Esto incluye, entre otros datos: productos, precios, stock, clientes, cuentas corrientes, proveedores, compras, ventas, facturas, datos fiscales, datos de sucursales, usuarios y cualquier otra información ingresada manualmente o importada a la plataforma.`,
+      `Smartock no será responsable por errores comerciales, administrativos, fiscales, contables o de gestión derivados de información incorrecta, incompleta, desactualizada o mal cargada por el cliente o sus usuarios.`,
+    ],
+  },
+  {
+    id: 19,
+    title: `Facturación y configuración fiscal`,
+    paragraphs: [
+      `Smartock podrá incluir funcionalidades vinculadas a facturación, configuración fiscal por sucursal, emisión o gestión de comprobantes, según el plan contratado y la disponibilidad técnica.`,
+      `El cliente será responsable por la correcta configuración de sus datos fiscales, condición tributaria, puntos de venta, certificados, credenciales, impuestos, percepciones, retenciones y cualquier otro dato requerido para emitir comprobantes válidos.`,
+      `Smartock no reemplaza el asesoramiento de un contador ni garantiza que la configuración fiscal del cliente sea correcta si la información provista por el cliente es incorrecta, incompleta o desactualizada.`,
+      `El cliente será responsable por verificar sus comprobantes, numeración, datos fiscales, importes, impuestos aplicados y cumplimiento de sus obligaciones tributarias.`,
+      `Smartock no será responsable por interrupciones, demoras o errores atribuibles a ARCA, servicios externos, internet, credenciales fiscales vencidas, certificados incorrectos, cambios normativos, bloqueos de terceros o configuraciones ajenas al control directo de Smartock.`,
+    ],
+  },
+  {
+    id: 20,
+    title: `Inteligencia artificial y procesamiento asistido`,
+    paragraphs: [
+      `Smartock podrá incorporar funcionalidades de inteligencia artificial para facilitar la carga, lectura, procesamiento o interpretación de facturas, listas de precios, productos, documentos, mensajes u otra información vinculada a la operación comercial.`,
+      `Las funcionalidades de inteligencia artificial tienen como finalidad reducir carga manual y asistir al usuario, pero pueden requerir revisión, validación o corrección humana.`,
+      `El cliente será responsable de revisar y aprobar la información procesada por IA antes de utilizarla para tomar decisiones comerciales, modificar precios, actualizar stock, emitir comprobantes, registrar movimientos o realizar cualquier acción operativa.`,
+      `Smartock no será responsable por errores derivados de documentos ilegibles, información incompleta, formatos no compatibles, datos mal interpretados, archivos defectuosos o falta de revisión por parte del cliente.`,
+    ],
+  },
+  {
+    id: 21,
+    title: `Stocky, asistente inteligente por WhatsApp`,
+    paragraphs: [
+      `Stocky es el asistente inteligente de Smartock por WhatsApp.`,
+      `Según el plan contratado, Stocky podrá permitir consultas sobre stock, ventas, productos, clientes, cuentas corrientes, proveedores, movimientos u otra información disponible en la cuenta del cliente.`,
+      `En planes avanzados, Stocky podrá incorporar funciones operativas, tales como cargar facturas, procesar listas de precios o iniciar acciones dentro de Smartock, siempre sujeto a la disponibilidad técnica y condiciones del plan contratado.`,
+      `El cliente reconoce que WhatsApp y otros servicios de mensajería dependen de proveedores externos, por lo que Smartock no será responsable por interrupciones, cambios de políticas, bloqueos, demoras, limitaciones técnicas o fallas atribuibles a dichos terceros.`,
+    ],
+  },
+  {
+    id: 22,
+    title: `Integraciones y servicios externos`,
+    paragraphs: [
+      `Smartock podrá integrarse con servicios externos, tales como proveedores de infraestructura, pasarelas de pago, servicios de facturación, servicios de mensajería, herramientas de inteligencia artificial, correo electrónico, WhatsApp, APIs u otros sistemas.`,
+      `El correcto funcionamiento de dichas integraciones puede depender de terceros, credenciales, permisos, disponibilidad de APIs, límites de uso, cambios de políticas o condiciones técnicas externas.`,
+      `Smartock no será responsable por fallas, interrupciones, cambios de precio, discontinuidad, bloqueos, demoras o modificaciones realizadas por proveedores externos.`,
+    ],
+  },
+  {
+    id: 23,
+    title: `Propiedad intelectual`,
+    paragraphs: [
+      `Smartock, su software, diseño, código, marca, funcionalidades, flujos, interfaces, textos, identidad visual, documentación, desarrollos, modelos, procesos y materiales asociados son propiedad de Ginkgo Devs o de sus respectivos titulares autorizados.`,
+      `La contratación de Smartock otorga al cliente una licencia limitada, revocable, no exclusiva, no transferible y condicionada al pago, para utilizar la plataforma durante el período contratado.`,
+      `El cliente no adquiere derechos de propiedad sobre Smartock, su código fuente, marca, diseño, estructura, funcionalidades o tecnología.`,
+      `Queda prohibido copiar, modificar, distribuir, revender, sublicenciar, clonar, explotar comercialmente o realizar ingeniería inversa sobre Smartock sin autorización previa y por escrito.`,
+    ],
+  },
+  {
+    id: 24,
+    title: `Marca blanca y acuerdos especiales`,
+    paragraphs: [
+      `El uso de Smartock bajo esquemas de marca blanca, reventa, sublicencia, implementación para terceros o acuerdos comerciales especiales requerirá autorización expresa y condiciones particulares acordadas por escrito.`,
+      `Salvo acuerdo específico, los clientes no podrán revender, representar, ofrecer o comercializar Smartock como propio frente a terceros.`,
+    ],
+  },
+  {
+    id: 25,
+    title: `Mejoras y sugerencias`,
+    paragraphs: [
+      `El cliente podrá enviar comentarios, sugerencias, ideas o pedidos de mejora sobre Smartock.`,
+      `Dichas sugerencias podrán ser utilizadas por Ginkgo Devs para mejorar el producto, desarrollar nuevas funcionalidades o ajustar funcionalidades existentes, sin que ello genere derechos de propiedad, compensación económica o exclusividad a favor del cliente.`,
+    ],
+  },
+  {
+    id: 26,
+    title: `Limitación de responsabilidad`,
+    paragraphs: [
+      `Smartock es una herramienta de gestión y apoyo operativo. No reemplaza el criterio comercial del cliente ni el asesoramiento profesional contable, impositivo, financiero, legal o administrativo.`,
+    ],
+    listIntro: `Smartock no será responsable por:`,
+    items: [
+      `errores de carga realizados por el cliente o sus usuarios`,
+      `decisiones comerciales tomadas a partir de reportes o información del sistema`,
+      `pérdidas de ventas, lucro cesante o daño indirecto`,
+      `problemas de internet o conectividad del cliente`,
+      `fallas de servicios externos`,
+      `errores fiscales o contables derivados de información incorrecta`,
+      `uso indebido por empleados o colaboradores del cliente`,
+      `credenciales compartidas o vulneradas por negligencia del cliente`,
+      `configuraciones incorrectas realizadas por el cliente`,
+      `falta de capacitación interna del personal del cliente`,
+      `imposibilidad de uso derivada de dispositivos, navegadores o redes del cliente`,
+    ],
+    trailingParagraphs: [
+      `En todos los casos, la responsabilidad de Smartock se limitará, en la medida permitida por la normativa aplicable, al importe efectivamente abonado por el cliente por el período en el que ocurrió el hecho que originó el reclamo.`,
+    ],
+  },
+  {
+    id: 27,
+    title: `Confidencialidad`,
+    paragraphs: [
+      `Smartock y Ginkgo Devs se comprometen a tratar con confidencialidad la información comercial, operativa y administrativa del cliente a la que pudieran acceder con motivo de la prestación del servicio.`,
+      `El cliente también se compromete a no divulgar información técnica, comercial, estratégica o funcional de Smartock que no sea pública.`,
+      `Esta obligación de confidencialidad continuará vigente incluso luego de finalizada la relación comercial.`,
+    ],
+  },
+  {
+    id: 28,
+    title: `Protección de datos personales`,
+    paragraphs: [
+      `El tratamiento de datos personales realizado en el marco de Smartock se regirá por la Política de Privacidad correspondiente.`,
+      `Al utilizar Smartock, el cliente declara conocer y aceptar que la plataforma podrá tratar datos personales de usuarios internos, clientes finales, proveedores, contactos comerciales u otras personas vinculadas a la operación del comercio, de acuerdo con las finalidades propias del servicio.`,
+    ],
+  },
+  {
+    id: 29,
+    title: `Modificación de estos términos`,
+    paragraphs: [
+      `Smartock podrá modificar estos Términos y Condiciones para reflejar cambios legales, técnicos, comerciales, operativos o de producto.`,
+      `Las modificaciones relevantes serán comunicadas al cliente a través de los canales oficiales, correo electrónico, WhatsApp, panel de administración o cualquier otro medio razonable.`,
+      `La continuidad en el uso del servicio luego de comunicadas las modificaciones implicará la aceptación de los nuevos términos.`,
+    ],
+  },
+  {
+    id: 30,
+    title: `Legislación aplicable y jurisdicción`,
+    paragraphs: [
+      `Estos Términos y Condiciones se regirán por las leyes de la República Argentina.`,
+      `Ante cualquier diferencia, reclamo o controversia, las partes procurarán resolverla previamente de manera amistosa y de buena fe.`,
+      `En caso de no alcanzarse una solución, y salvo disposición legal imperativa en contrario, las partes se someterán a la jurisdicción de los tribunales competentes de la Provincia de Tucumán, República Argentina.`,
+    ],
+  },
+];

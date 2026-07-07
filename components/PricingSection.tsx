@@ -121,7 +121,7 @@ const plans: Plan[] = [
 ];
 
 const disclaimers = [
-  "Precios mensuales + IVA.",
+  "Precios mensuales por sucursal.",
   "Los valores se calculan según la cantidad de sucursales.",
   "Para más de 3 sucursales, armamos una propuesta personalizada.",
   "Las extracciones IA incluyen procesamiento de facturas o listas de precios.",
@@ -236,14 +236,6 @@ function BranchPricingTable({
               >
                 {row.price}
               </span>
-              <span
-                className={[
-                  "ml-1 text-[11px] font-semibold",
-                  isRecommended ? "text-white/65" : "text-[#9a8da3]",
-                ].join(" ")}
-              >
-                + IVA
-              </span>
             </div>
           </div>
         ))}
@@ -280,7 +272,7 @@ function BranchPricingTable({
           isRecommended ? "text-white/60" : "text-[#9a8da3]",
         ].join(" ")}
       >
-        Smartock se cobra por sucursal · valores mensuales + IVA
+        Smartock se cobra por sucursal · valores mensuales
       </p>
     </div>
   );
@@ -338,14 +330,6 @@ function PlanCard({ plan }: { plan: Plan }) {
           >
             {plan.pricing.one}
           </p>
-          <span
-            className={[
-              "text-sm font-bold",
-              isRecommended ? "text-white/85" : "text-[#520088]/80",
-            ].join(" ")}
-          >
-            + IVA
-          </span>
           <span
             className={[
               "text-sm font-semibold",
