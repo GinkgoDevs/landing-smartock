@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import { CalendlyEmbed } from "@/components/CalendlyEmbed";
 import { FeatureCarousel } from "@/components/FeatureCarousel";
 import { NavBar } from "@/components/NavBar";
-import { BillingPlansSection } from "@/components/BillingPlansSection";
 import { PricingSection } from "@/components/PricingSection";
 import { SectionLabel } from "@/components/SectionLabel";
 import { StockySection } from "@/components/StockySection";
@@ -372,7 +371,6 @@ export default function Home() {
       </section>
 
       <PricingSection />
-      <BillingPlansSection />
 
       <section className="section faq">
         <div className="container faqGrid">

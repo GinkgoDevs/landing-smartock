@@ -1,19 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import { SectionLabel } from "@/components/SectionLabel";
+import {
+  billingModeOptions,
+  billingModes,
+  getPlanBranchPricing,
+  getPricingTableCopy,
+  type BillingModeId,
+  type BranchPriceDisplay,
+} from "@/lib/pricing";
 
 type FeatureGroup = {
   label: string;
   items: string[];
 };
 
-type BranchPricing = {
-  one: string;
-  two: string;
-  three: string;
-};
-
-type Plan = {
+type PlanDetails = {
   name: string;
-  pricing: BranchPricing;
   description: string;
   recommended?: boolean;
   premium?: boolean;
@@ -21,14 +25,9 @@ type Plan = {
   groups: FeatureGroup[];
 };
 
-const plans: Plan[] = [
+const planDetails: PlanDetails[] = [
   {
     name: "Smart",
-    pricing: {
-      one: "$65.000",
-      two: "$117.000",
-      three: "$166.000",
-    },
     description:
       "Gestión base para comercios que necesitan ordenar stock, ventas y cuentas básicas.",
     cta: "Solicitar demo",
@@ -51,11 +50,6 @@ const plans: Plan[] = [
   },
   {
     name: "Pro",
-    pricing: {
-      one: "$85.000",
-      two: "$153.000",
-      three: "$217.000",
-    },
     description:
       "Gestión completa con facturación, reportes y Stocky consultivo por WhatsApp.",
     recommended: true,
@@ -83,11 +77,6 @@ const plans: Plan[] = [
   },
   {
     name: "IA Premium",
-    pricing: {
-      one: "$120.000",
-      two: "$216.000",
-      three: "$306.000",
-    },
     description:
       "Automatización con IA y Stocky operativo para comercios que quieren escalar sin carga manual.",
     premium: true,
@@ -121,9 +110,10 @@ const plans: Plan[] = [
 ];
 
 const disclaimers = [
-  "Precios mensuales por sucursal.",
   "Los valores se calculan según la cantidad de sucursales.",
   "Para más de 3 sucursales, armamos una propuesta personalizada.",
+  "El plan semestral incluye 1 mes bonificado.",
+  "El plan anual incluye 4 meses bonificados.",
   "Las extracciones IA incluyen procesamiento de facturas o listas de precios.",
 ];
 
@@ -165,14 +155,69 @@ function GiftIcon({ className }: { className?: string }) {
   );
 }
 
+function BillingModeSwitch({
+  value,
+  onChange,
+}: {
+  value: BillingModeId;
+  onChange: (value: BillingModeId) => void;
+}) {
+  return (
+    <div className="mx-auto w-full max-w-2xl">
+      <p className="mb-2 text-center text-[11px] font-extrabold tracking-[0.08em] text-[#520088] uppercase">
+        Período de facturación
+      </p>
+      <div className="grid grid-cols-3 gap-1 rounded-2xl border border-[#d0c2d5]/55 bg-[#faf8fc]/90 p-1">
+        {billingModeOptions.map((option) => {
+          const isActive = option.value === value;
+
+          return (
+            <button
+              className={[
+                "min-h-11 rounded-[14px] px-3 py-2 text-center transition-all duration-200 ease-out",
+                isActive
+                  ? "bg-[#520088] text-white shadow-[0_8px_20px_rgba(82,0,136,0.22)]"
+                  : "text-[#4d4353] hover:bg-white/80 hover:text-[#1a1a28]",
+              ].join(" ")}
+              key={option.value}
+              onClick={() => onChange(option.value)}
+              type="button"
+            >
+              <span className="block text-sm font-extrabold">{option.label}</span>
+              {option.hint ? (
+                <span
+                  className={[
+                    "mt-0.5 block text-[10px] font-semibold",
+                    isActive ? "text-white/75" : "text-[#9a8da3]",
+                  ].join(" ")}
+                >
+                  {option.hint}
+                </span>
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function BranchPricingTable({
   pricing,
+  copy,
   isRecommended,
   isPremium,
+  mode,
 }: {
-  pricing: BranchPricing;
+  pricing: {
+    one: BranchPriceDisplay;
+    two: BranchPriceDisplay;
+    three: BranchPriceDisplay;
+  };
+  copy: ReturnType<typeof getPricingTableCopy>;
   isRecommended: boolean;
   isPremium: boolean;
+  mode: BillingModeId;
 }) {
   const rowBase = isRecommended
     ? "border-white/12"
@@ -194,7 +239,7 @@ function BranchPricingTable({
   return (
     <div className="space-y-2">
       <p className={`text-[10px] font-extrabold tracking-[0.1em] uppercase ${labelMuted}`}>
-        Precio mensual por cantidad de sucursales
+        {copy.title}
       </p>
 
       <div
@@ -216,15 +261,27 @@ function BranchPricingTable({
             ].join(" ")}
             key={row.branches}
           >
-            <span
-              className={[
-                "text-[12px] sm:text-[13px]",
-                row.highlight ? "font-bold" : "font-medium",
-                row.highlight ? valueHighlight : labelDefault,
-              ].join(" ")}
-            >
-              {row.branches}
-            </span>
+            <div className="min-w-0">
+              <span
+                className={[
+                  "block text-[12px] sm:text-[13px]",
+                  row.highlight ? "font-bold" : "font-medium",
+                  row.highlight ? valueHighlight : labelDefault,
+                ].join(" ")}
+              >
+                {row.branches}
+              </span>
+              {mode !== "mensual" ? (
+                <span
+                  className={[
+                    "mt-0.5 block text-[10px] font-medium",
+                    isRecommended ? "text-white/60" : "text-[#9a8da3]",
+                  ].join(" ")}
+                >
+                  {row.price.effectiveFormatted}/mes efectivo
+                </span>
+              ) : null}
+            </div>
             <div className="text-right">
               <span
                 className={[
@@ -234,8 +291,18 @@ function BranchPricingTable({
                   row.highlight ? valueHighlight : valueDefault,
                 ].join(" ")}
               >
-                {row.price}
+                {row.price.formatted}
               </span>
+              {copy.rowSuffix ? (
+                <span
+                  className={[
+                    "mt-0.5 block text-[10px] font-semibold",
+                    isRecommended ? "text-white/60" : "text-[#9a8da3]",
+                  ].join(" ")}
+                >
+                  {copy.rowSuffix}
+                </span>
+              ) : null}
             </div>
           </div>
         ))}
@@ -272,15 +339,26 @@ function BranchPricingTable({
           isRecommended ? "text-white/60" : "text-[#9a8da3]",
         ].join(" ")}
       >
-        Smartock se cobra por sucursal · valores mensuales
+        {copy.footnote}
       </p>
     </div>
   );
 }
 
-function PlanCard({ plan }: { plan: Plan }) {
+function PlanCard({
+  plan,
+  planIndex,
+  billingMode,
+}: {
+  plan: PlanDetails;
+  planIndex: number;
+  billingMode: BillingModeId;
+}) {
   const isRecommended = Boolean(plan.recommended);
   const isPremium = Boolean(plan.premium);
+  const pricing = getPlanBranchPricing(planIndex, billingMode);
+  const copy = getPricingTableCopy(billingMode);
+  const headline = pricing.one;
 
   return (
     <article
@@ -328,7 +406,7 @@ function PlanCard({ plan }: { plan: Plan }) {
               isRecommended ? "text-white" : "text-[#520088]",
             ].join(" ")}
           >
-            {plan.pricing.one}
+            {headline.formatted}
           </p>
           <span
             className={[
@@ -336,7 +414,7 @@ function PlanCard({ plan }: { plan: Plan }) {
               isRecommended ? "text-white/75" : "text-[#6b5f72]",
             ].join(" ")}
           >
-            / mes
+            {copy.headlineSuffix}
           </span>
         </div>
 
@@ -346,7 +424,10 @@ function PlanCard({ plan }: { plan: Plan }) {
             isRecommended ? "text-white/70" : "text-[#6b5f72]",
           ].join(" ")}
         >
-          Precio de referencia para 1 sucursal
+          {copy.referenceLabel}
+          {billingMode !== "mensual"
+            ? ` · ${headline.effectiveFormatted}/mes efectivo`
+            : null}
         </p>
 
         <p
@@ -360,9 +441,11 @@ function PlanCard({ plan }: { plan: Plan }) {
       </div>
 
       <BranchPricingTable
+        copy={copy}
         isPremium={isPremium}
         isRecommended={isRecommended}
-        pricing={plan.pricing}
+        mode={billingMode}
+        pricing={pricing}
       />
 
       <div className="mt-5 flex flex-1 flex-col gap-5">
@@ -423,6 +506,9 @@ function PlanCard({ plan }: { plan: Plan }) {
 }
 
 export function PricingSection() {
+  const [billingMode, setBillingMode] = useState<BillingModeId>("mensual");
+  const selectedMode = billingModes[billingMode];
+
   return (
     <section
       className="scroll-mt-[78px] bg-white py-14 md:py-16 lg:py-20"
@@ -443,7 +529,8 @@ export function PricingSection() {
             Planes pensados para el crecimiento de tu comercio
           </h2>
           <p className="text-balance mt-3 text-base leading-relaxed text-[#4d4353] md:text-[17px]">
-            Precios mensuales por sucursal. Elegí el plan que mejor se adapte a tu operación.
+            Elegí el plan y el período de facturación. Los precios se adaptan según la cantidad de
+            sucursales.
           </p>
         </div>
 
@@ -462,9 +549,19 @@ export function PricingSection() {
           </div>
         </div>
 
+        <div className="mb-8">
+          <BillingModeSwitch onChange={setBillingMode} value={billingMode} />
+          {billingMode !== "mensual" ? (
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm font-semibold text-[#520088]">
+              {selectedMode.description}
+              {selectedMode.benefit ? ` · ${selectedMode.benefit}` : ""}
+            </p>
+          ) : null}
+        </div>
+
         <div className="grid items-stretch gap-5 max-lg:grid-cols-1 lg:grid-cols-3 lg:gap-6 lg:pt-2">
-          {plans.map((plan) => (
-            <PlanCard key={plan.name} plan={plan} />
+          {planDetails.map((plan, index) => (
+            <PlanCard billingMode={billingMode} key={plan.name} plan={plan} planIndex={index} />
           ))}
         </div>
 

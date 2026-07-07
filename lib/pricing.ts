@@ -20,6 +20,15 @@ export const planPricing = [
 ] as const;
 
 export const billingModes = {
+  mensual: {
+    id: "mensual",
+    label: "Mensual",
+    durationMonths: 1,
+    paidMonths: 1,
+    freeMonths: 0,
+    benefit: null,
+    description: "Pagá mes a mes por sucursal.",
+  },
   semestral: {
     id: "semestral",
     label: "Semestral",
@@ -44,30 +53,68 @@ export const billingModes = {
 export type BillingModeId = keyof typeof billingModes;
 export type BranchCount = 1 | 2 | 3;
 
-export const branchOptions: { value: BranchCount; label: string }[] = [
-  { value: 1, label: "1 sucursal" },
-  { value: 2, label: "2 sucursales" },
-  { value: 3, label: "3 sucursales" },
+export const billingModeOptions = [
+  { value: "mensual" as const, label: "Mensual" },
+  { value: "semestral" as const, label: "Semestral", hint: "1 mes gratis" },
+  { value: "anual" as const, label: "Anual", hint: "4 meses gratis" },
 ];
 
 export function formatArs(amount: number) {
   return `$${amount.toLocaleString("es-AR")}`;
 }
 
-export function getMonthlyPrice(planIndex: number, branches: BranchCount) {
-  return planPricing[planIndex].monthlyPrices[branches - 1];
-}
+export type BranchPriceDisplay = {
+  total: number;
+  effectiveMonthly: number;
+  formatted: string;
+  effectiveFormatted: string;
+};
 
-export function getBillingTotals(monthlyPrice: number, mode: BillingModeId) {
+export function getBranchPriceDisplay(
+  monthlyPrice: number,
+  mode: BillingModeId,
+): BranchPriceDisplay {
   const billingMode = billingModes[mode];
   const total = monthlyPrice * billingMode.paidMonths;
-  const effectiveMonthly = Math.round(total / billingMode.durationMonths);
+  const effectiveMonthly =
+    mode === "mensual" ? monthlyPrice : Math.round(total / billingMode.durationMonths);
 
   return {
     total,
     effectiveMonthly,
-    durationMonths: billingMode.durationMonths,
-    paidMonths: billingMode.paidMonths,
-    freeMonths: billingMode.freeMonths,
+    formatted: formatArs(total),
+    effectiveFormatted: formatArs(effectiveMonthly),
+  };
+}
+
+export function getPlanBranchPricing(planIndex: number, mode: BillingModeId) {
+  const monthlyPrices = planPricing[planIndex].monthlyPrices;
+
+  return {
+    one: getBranchPriceDisplay(monthlyPrices[0], mode),
+    two: getBranchPriceDisplay(monthlyPrices[1], mode),
+    three: getBranchPriceDisplay(monthlyPrices[2], mode),
+  };
+}
+
+export function getPricingTableCopy(mode: BillingModeId) {
+  const billingMode = billingModes[mode];
+
+  if (mode === "mensual") {
+    return {
+      title: "Precio mensual por cantidad de sucursales",
+      footnote: "Smartock se cobra por sucursal · valores mensuales",
+      headlineSuffix: "/ mes",
+      referenceLabel: "Precio de referencia para 1 sucursal",
+      rowSuffix: null as string | null,
+    };
+  }
+
+  return {
+    title: `Precio ${billingMode.label.toLowerCase()} por cantidad de sucursales`,
+    footnote: `Pagás ${billingMode.paidMonths} meses y usás Smartock durante ${billingMode.durationMonths} · ${billingMode.benefit}`,
+    headlineSuffix: `por ${billingMode.durationMonths} meses`,
+    referenceLabel: "Total de referencia para 1 sucursal",
+    rowSuffix: `por ${billingMode.durationMonths} meses`,
   };
 }
