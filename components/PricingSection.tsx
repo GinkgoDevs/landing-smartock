@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SectionLabel } from "@/components/SectionLabel";
+import { AGENDA_URL } from "@/lib/links";
 import {
   billingModeOptions,
   billingModes,
@@ -497,7 +498,9 @@ function PlanCard({
               ? "bg-[#1a1a28] !text-white shadow-[0_12px_28px_rgba(26,26,40,0.18)] hover:bg-[#520088] hover:!text-white"
               : "border border-[#520088]/25 bg-white !text-[#520088] hover:border-[#520088] hover:bg-[#fcf8ff] hover:!text-[#520088]",
         ].join(" ")}
-        href="#agenda"
+        href={AGENDA_URL}
+        rel="noopener noreferrer"
+        target="_blank"
       >
         {plan.cta}
       </a>

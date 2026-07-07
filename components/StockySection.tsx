@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AGENDA_URL } from "@/lib/links";
 
 const highlights = [
   {
@@ -175,7 +176,9 @@ export function StockySection() {
               </p>
               <a
                 className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-[14px] bg-[#520088] px-6 text-sm font-extrabold !text-white shadow-[0_12px_28px_rgba(82,0,136,0.2)] transition-all duration-200 ease-out hover:bg-[#7209b7] hover:!text-white hover:shadow-[0_16px_34px_rgba(82,0,136,0.26)]"
-                href="#agenda"
+                href={AGENDA_URL}
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 Agendá tu llamada
               </a>

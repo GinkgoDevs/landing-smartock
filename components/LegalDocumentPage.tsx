@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NavBar } from "@/components/NavBar";
+import { AGENDA_URL } from "@/lib/links";
 import type { LegalSection } from "@/content/legal-types";
 
 type LegalDocumentPageProps = {
@@ -103,7 +104,9 @@ export function LegalDocumentPage({
       <footer className="legalFooter">
         <div className="container legalFooterInner">
           <p>© 2026 Smartock. Gestión inteligente para PyMEs argentinas.</p>
-          <Link href="/#agenda">Contacto</Link>
+          <a href={AGENDA_URL} rel="noopener noreferrer" target="_blank">
+            Contacto
+          </a>
         </div>
       </footer>
     </>

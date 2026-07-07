@@ -1,12 +1,12 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { CalendlyEmbed } from "@/components/CalendlyEmbed";
 import { FeatureCarousel } from "@/components/FeatureCarousel";
 import { NavBar } from "@/components/NavBar";
 import { PricingSection } from "@/components/PricingSection";
 import { SectionLabel } from "@/components/SectionLabel";
 import { StockySection } from "@/components/StockySection";
 import { WistiaHeroVideo } from "@/components/WistiaHeroVideo";
+import { AGENDA_URL } from "@/lib/links";
 import type { SimpleIcon } from "simple-icons";
 import {
   siGooglesheets,
@@ -191,7 +191,7 @@ export default function Home() {
               un solo panel.
             </p>
             <div className="heroActions">
-              <a className="heroPrimaryCta" href="#agenda">
+              <a className="heroPrimaryCta" href={AGENDA_URL} rel="noopener noreferrer" target="_blank">
                 Sí, quiero probar Smartock gratis
               </a>
               <a className="heroSecondaryCta" href="#planes">
@@ -393,15 +393,29 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section calendlySection" id="agenda" aria-label="Agendar demo">
+      <section className="section agendaSection" id="agenda" aria-label="Agendar demo">
         <div className="container">
           <div className="sectionHeader">
             <p className="eyebrow centeredEyebrow">Agendá tu demo</p>
             <h2>Elegí el horario que mejor te quede</h2>
             <p>Reservá una llamada con nuestro equipo y te mostramos Smartock en acción.</p>
           </div>
-          <div className="calendlyCard">
-            <CalendlyEmbed />
+          <div className="agendaCard">
+            <div className="agendaCardContent">
+              <p className="agendaCardTitle">Demo y descubrimiento gratis</p>
+              <p className="agendaCardText">
+                Accedé a nuestro calendario online, elegí el día y horario que te quede mejor y
+                coordinamos tu demo personalizada de Smartock.
+              </p>
+              <a
+                className="agendaCardCta"
+                href={AGENDA_URL}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Ir al calendario de agenda
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -422,7 +436,7 @@ export default function Home() {
               <p>
                 Revolucionando la gestion de PyMEs en Argentina mediante inteligencia aplicada.
               </p>
-              <a className="footerCta" href="#agenda">
+              <a className="footerCta" href={AGENDA_URL} rel="noopener noreferrer" target="_blank">
                 Agendar demo gratis
               </a>
             </div>
@@ -440,7 +454,9 @@ export default function Home() {
                   <a href="#planes">Planes</a>
                 </li>
                 <li>
-                  <a href="#agenda">Contacto</a>
+                  <a href={AGENDA_URL} rel="noopener noreferrer" target="_blank">
+                    Contacto
+                  </a>
                 </li>
               </ul>
             </nav>

@@ -1514,11 +1514,11 @@ ul {
   padding: 14px 18px;
 }
 
-.calendlySection {
+.agendaSection {
   background: var(--surface-low);
 }
 
-.calendlyCard {
+.agendaCard {
   margin-top: 40px;
   border-radius: 28px;
   background: white;
@@ -1526,9 +1526,52 @@ ul {
   overflow: hidden;
 }
 
-.calendlyWidget {
-  min-width: 0;
-  min-height: 700px;
+.agendaCardContent {
+  display: grid;
+  gap: 18px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 48px);
+  text-align: center;
+}
+
+.agendaCardTitle {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--on-surface);
+}
+
+.agendaCardText {
+  margin: 0;
+  color: var(--on-surface-variant);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.agendaCardCta {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  border-radius: 14px;
+  background: var(--primary);
+  padding: 0 24px;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: 0 16px 34px rgba(82, 0, 136, 0.22);
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.agendaCardCta:hover {
+  background: var(--primary-container);
+  transform: translateY(-2px);
 }
 
 .footer {
