@@ -1,195 +1,79 @@
+"use client";
+
+import { useState } from "react";
 import { SectionLabel } from "@/components/SectionLabel";
+import {
+  billingModes,
+  branchOptions,
+  formatArs,
+  getBillingTotals,
+  getMonthlyPrice,
+  planPricing,
+  type BillingModeId,
+  type BranchCount,
+} from "@/lib/pricing";
 
-const monthlyPlans = [
-  { name: "Smart", monthlyPrice: 65_000 },
-  { name: "Pro", monthlyPrice: 85_000 },
-  { name: "IA Premium", monthlyPrice: 120_000 },
-] as const;
-
-const billingOptions = [
-  {
-    id: "semestral",
-    name: "Plan semestral",
-    durationMonths: 6,
-    paidMonths: 5,
-    freeMonths: 1,
-    benefit: "1 mes gratis",
-    description: "Pagá 5 meses y usá Smartock durante 6.",
-    recommended: false,
-  },
-  {
-    id: "anual",
-    name: "Plan anual",
-    durationMonths: 12,
-    paidMonths: 8,
-    freeMonths: 4,
-    benefit: "4 meses gratis",
-    description: "Pagá 8 meses y usá Smartock durante 12.",
-    recommended: true,
-  },
-] as const;
-
-function formatPrice(amount: number) {
-  return `$${amount.toLocaleString("es-AR")}`;
-}
-
-function CalendarIcon({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" className={className} fill="none" viewBox="0 0 24 24">
-      <path
-        d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.75"
-      />
-    </svg>
-  );
-}
-
-function BillingOptionCard({
-  option,
+function SegmentedControl<T extends string | number>({
+  label,
+  value,
+  options,
+  onChange,
 }: {
-  option: (typeof billingOptions)[number];
+  label: string;
+  value: T;
+  options: { value: T; label: string; hint?: string }[];
+  onChange: (value: T) => void;
 }) {
-  const isRecommended = option.recommended;
-
   return (
-    <article
-      className={[
-        "relative flex h-full flex-col rounded-[22px] border p-6 sm:p-7",
-        isRecommended
-          ? "border-[#7209b7] bg-linear-to-br from-[#520088] to-[#7209b7] text-white shadow-[0_24px_56px_rgba(82,0,136,0.24)]"
-          : "border-[#d0c2d5]/55 bg-white shadow-[0_16px_36px_rgba(26,26,40,0.05)]",
-      ].join(" ")}
-    >
-      {isRecommended ? (
-        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white px-3.5 py-1 text-[11px] font-extrabold tracking-[0.04em] text-[#520088] uppercase shadow-[0_8px_20px_rgba(26,26,40,0.12)]">
-          Mejor valor
-        </span>
-      ) : null}
-
-      <div className="mb-5 space-y-3">
-        <span
-          className={[
-            "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-extrabold tracking-[0.04em] uppercase",
-            isRecommended
-              ? "bg-white/15 text-[#5ed8ff]"
-              : "bg-[#520088]/8 text-[#520088]",
-          ].join(" ")}
-        >
-          <CalendarIcon className="h-3.5 w-3.5" />
-          {option.benefit}
-        </span>
-
-        <h3
-          className={[
-            "text-balance text-xl font-extrabold tracking-[-0.03em]",
-            isRecommended ? "text-white" : "text-[#1a1a28]",
-          ].join(" ")}
-        >
-          {option.name}
-        </h3>
-
-        <p
-          className={[
-            "text-sm leading-relaxed",
-            isRecommended ? "text-white/85" : "text-[#4d4353]",
-          ].join(" ")}
-        >
-          {option.description}
-        </p>
-      </div>
-
+    <div className="space-y-2">
+      <p className="text-[11px] font-extrabold tracking-[0.08em] text-[#520088] uppercase">
+        {label}
+      </p>
       <div
-        className={[
-          "overflow-hidden rounded-xl border",
-          isRecommended ? "border-white/15 bg-white/8" : "border-[#d0c2d5]/50 bg-[#faf8fc]/80",
-        ].join(" ")}
+        className="grid gap-1 rounded-2xl border border-[#d0c2d5]/55 bg-[#faf8fc]/90 p-1"
+        style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
       >
-        {monthlyPlans.map((plan, index) => {
-          const total = plan.monthlyPrice * option.paidMonths;
-          const effectiveMonthly = Math.round(total / option.durationMonths);
+        {options.map((option) => {
+          const isActive = option.value === value;
 
           return (
-            <div
+            <button
               className={[
-                "flex items-center justify-between gap-3 px-3.5 py-3 sm:px-4",
-                index > 0
-                  ? isRecommended
-                    ? "border-t border-white/12"
-                    : "border-t border-[#d0c2d5]/45"
-                  : "",
-                isRecommended ? "bg-white/4" : index === 0 ? "bg-white/70" : "",
+                "min-h-11 rounded-[14px] px-3 py-2 text-center transition-all duration-200 ease-out",
+                isActive
+                  ? "bg-[#520088] text-white shadow-[0_8px_20px_rgba(82,0,136,0.22)]"
+                  : "text-[#4d4353] hover:bg-white/80 hover:text-[#1a1a28]",
               ].join(" ")}
-              key={plan.name}
+              key={String(option.value)}
+              onClick={() => onChange(option.value)}
+              type="button"
             >
-              <div className="min-w-0">
-                <p
+              <span className="block text-sm font-extrabold">{option.label}</span>
+              {option.hint ? (
+                <span
                   className={[
-                    "text-sm font-bold",
-                    isRecommended ? "text-white" : "text-[#1a1a28]",
+                    "mt-0.5 block text-[10px] font-semibold",
+                    isActive ? "text-white/75" : "text-[#9a8da3]",
                   ].join(" ")}
                 >
-                  Plan {plan.name}
-                </p>
-                <p
-                  className={[
-                    "text-[11px] font-medium",
-                    isRecommended ? "text-white/65" : "text-[#9a8da3]",
-                  ].join(" ")}
-                >
-                  1 sucursal · {formatPrice(effectiveMonthly)}/mes efectivo
-                </p>
-              </div>
-              <div className="text-right">
-                <p
-                  className={[
-                    "text-base font-black tracking-[-0.03em] sm:text-lg",
-                    isRecommended ? "text-white" : "text-[#520088]",
-                  ].join(" ")}
-                >
-                  {formatPrice(total)}
-                </p>
-                <p
-                  className={[
-                    "text-[11px] font-semibold",
-                    isRecommended ? "text-white/65" : "text-[#9a8da3]",
-                  ].join(" ")}
-                >
-                  por {option.durationMonths} meses
-                </p>
-              </div>
-            </div>
+                  {option.hint}
+                </span>
+              ) : null}
+            </button>
           );
         })}
       </div>
-
-      <p
-        className={[
-          "mt-3 text-[11px] font-medium",
-          isRecommended ? "text-white/60" : "text-[#9a8da3]",
-        ].join(" ")}
-      >
-        Aplicable a cualquier plan · precio de referencia para 1 sucursal
-      </p>
-
-      <a
-        className={[
-          "mt-5 inline-flex min-h-11 w-full items-center justify-center rounded-[14px] px-5 text-sm font-extrabold transition-all duration-200 ease-out",
-          isRecommended
-            ? "bg-white !text-[#520088] shadow-[0_10px_24px_rgba(26,26,40,0.14)] hover:bg-[#f2daff] hover:!text-[#520088]"
-            : "border border-[#520088]/25 bg-white !text-[#520088] hover:border-[#520088] hover:bg-[#fcf8ff] hover:!text-[#520088]",
-        ].join(" ")}
-        href="#agenda"
-      >
-        Elegir {option.name.toLowerCase()}
-      </a>
-    </article>
+    </div>
   );
 }
 
 export function BillingPlansSection() {
+  const [billingMode, setBillingMode] = useState<BillingModeId>("anual");
+  const [branches, setBranches] = useState<BranchCount>(1);
+
+  const selectedMode = billingModes[billingMode];
+  const branchLabel = branchOptions.find((option) => option.value === branches)?.label ?? "";
+
   return (
     <section
       className="scroll-mt-[78px] bg-linear-to-b from-white via-[#fcf8ff] to-white py-14 md:py-16 lg:py-20"
@@ -204,18 +88,121 @@ export function BillingPlansSection() {
             className="text-balance text-[clamp(1.875rem,3.6vw,2.625rem)] leading-[1.12] font-extrabold tracking-[-0.04em] text-[#1a1a28]"
             id="billing-plans-heading"
           >
-            Planes semestral y anual con meses bonificados
+            Calculá tu plan semestral o anual
           </h2>
           <p className="text-balance mt-3 text-base leading-relaxed text-[#4d4353] md:text-[17px]">
-            Comprometete por más tiempo y ahorrá. El beneficio aplica sobre el plan mensual que
-            elijas.
+            Elegí el período, la cantidad de sucursales y compará el precio de cada plan con meses
+            bonificados incluidos.
           </p>
         </div>
 
-        <div className="grid items-stretch gap-5 lg:grid-cols-2 lg:gap-6 lg:pt-2">
-          {billingOptions.map((option) => (
-            <BillingOptionCard key={option.id} option={option} />
-          ))}
+        <div className="mx-auto max-w-4xl rounded-[24px] border border-[#d0c2d5]/55 bg-white/90 p-5 shadow-[0_20px_48px_rgba(26,26,40,0.06)] sm:p-6 lg:p-7">
+          <div className="grid gap-4 md:grid-cols-2">
+            <SegmentedControl
+              label="Período de facturación"
+              onChange={setBillingMode}
+              options={[
+                {
+                  value: "semestral" as const,
+                  label: "Semestral",
+                  hint: "1 mes gratis",
+                },
+                {
+                  value: "anual" as const,
+                  label: "Anual",
+                  hint: "4 meses gratis",
+                },
+              ]}
+              value={billingMode}
+            />
+
+            <SegmentedControl
+              label="Cantidad de sucursales"
+              onChange={setBranches}
+              options={branchOptions.map((option) => ({
+                value: option.value,
+                label: option.label,
+              }))}
+              value={branches}
+            />
+          </div>
+
+          <div className="mt-5 rounded-2xl border border-[#520088]/12 bg-linear-to-r from-[#fcf8ff] via-white to-[#f2e8ff] px-4 py-4 sm:px-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-[11px] font-extrabold tracking-[0.08em] text-[#520088] uppercase">
+                  Plan {selectedMode.label.toLowerCase()}
+                </p>
+                <p className="mt-1 text-sm font-bold text-[#1a1a28]">{selectedMode.description}</p>
+              </div>
+              <span className="inline-flex w-fit items-center rounded-full bg-[#520088] px-3 py-1 text-[11px] font-extrabold tracking-[0.04em] text-white uppercase">
+                {selectedMode.benefit}
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-5 overflow-hidden rounded-2xl border border-[#d0c2d5]/50">
+            {planPricing.map((plan, index) => {
+              const monthlyPrice = getMonthlyPrice(index, branches);
+              const totals = getBillingTotals(monthlyPrice, billingMode);
+              const isRecommended = plan.recommended;
+
+              return (
+                <article
+                  className={[
+                    "flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5",
+                    index > 0 ? "border-t border-[#d0c2d5]/45" : "",
+                    isRecommended ? "bg-[#520088]/4" : "bg-white/80",
+                  ].join(" ")}
+                  key={plan.name}
+                >
+                  <div className="min-w-0 space-y-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-base font-extrabold text-[#1a1a28]">Plan {plan.name}</h3>
+                      {isRecommended ? (
+                        <span className="rounded-full bg-[#520088] px-2.5 py-0.5 text-[10px] font-extrabold tracking-[0.04em] text-white uppercase">
+                          Recomendado
+                        </span>
+                      ) : null}
+                      {plan.premium ? (
+                        <span className="rounded-full border border-[#520088]/15 bg-[#520088]/6 px-2.5 py-0.5 text-[10px] font-extrabold tracking-[0.04em] text-[#520088] uppercase">
+                          Más potente
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="text-sm text-[#6b5f72]">
+                      {branchLabel} · {formatArs(totals.effectiveMonthly)}/mes efectivo
+                    </p>
+                    <p className="text-[11px] font-medium text-[#9a8da3]">
+                      Pagás {totals.paidMonths} meses y usás Smartock durante {totals.durationMonths}
+                    </p>
+                  </div>
+
+                  <div className="text-left sm:text-right">
+                    <p className="text-[clamp(1.25rem,3vw,1.625rem)] font-black tracking-[-0.04em] text-[#520088]">
+                      {formatArs(totals.total)}
+                    </p>
+                    <p className="text-[11px] font-semibold text-[#9a8da3]">
+                      total por {totals.durationMonths} meses
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <p className="mt-4 text-center text-[11px] font-medium text-[#9a8da3]">
+            Referencia mensual para {branchLabel.toLowerCase()}: Smart{" "}
+            {formatArs(getMonthlyPrice(0, branches))} · Pro {formatArs(getMonthlyPrice(1, branches))}{" "}
+            · IA Premium {formatArs(getMonthlyPrice(2, branches))}
+          </p>
+
+          <a
+            className="mt-5 inline-flex min-h-11 w-full items-center justify-center rounded-[14px] bg-[#520088] px-5 text-sm font-extrabold !text-white shadow-[0_12px_28px_rgba(82,0,136,0.2)] transition-all duration-200 ease-out hover:bg-[#7209b7] hover:!text-white"
+            href="#agenda"
+          >
+            Quiero el plan {selectedMode.label.toLowerCase()} para {branchLabel.toLowerCase()}
+          </a>
         </div>
 
         <ul className="mx-auto mt-8 grid max-w-3xl gap-2 sm:grid-cols-2">
