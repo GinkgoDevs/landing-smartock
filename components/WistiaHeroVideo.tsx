@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { WistiaPlayer } from "@wistia/wistia-player-react";
 
-const WISTIA_MEDIA_ID = "ilasoa5wr3";
+const WISTIA_MEDIA_ID = "yhm77mt598";
 const WISTIA_ASPECT = 960 / 434;
 
 export function WistiaHeroVideo() {
