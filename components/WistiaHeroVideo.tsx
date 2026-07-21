@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { WistiaPlayer } from "@wistia/wistia-player-react";
 
 const WISTIA_MEDIA_ID = "yhm77mt598";
-const WISTIA_ASPECT = 960 / 434;
+const WISTIA_ASPECT = 16 / 9;
 
 export function WistiaHeroVideo() {
   const hasRequestedFullscreen = useRef(false);
