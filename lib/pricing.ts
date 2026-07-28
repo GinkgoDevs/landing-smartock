@@ -1,19 +1,27 @@
+export const branchVolumeDiscounts = {
+  second: 0.15,
+  third: 0.2,
+} as const;
+
 export const planPricing = [
   {
     name: "Smart",
-    monthlyPrices: [65_000, 117_000, 166_000],
+    listMonthlyPrice: 65_000,
+    launchDiscountPercent: 10,
     recommended: false,
     premium: false,
   },
   {
     name: "Pro",
-    monthlyPrices: [85_000, 153_000, 217_000],
+    listMonthlyPrice: 85_000,
+    launchDiscountPercent: 15,
     recommended: true,
     premium: false,
   },
   {
     name: "IA Premium",
-    monthlyPrices: [120_000, 216_000, 306_000],
+    listMonthlyPrice: 120_000,
+    launchDiscountPercent: 30,
     recommended: false,
     premium: true,
   },
@@ -59,8 +67,40 @@ export const billingModeOptions = [
   { value: "anual" as const, label: "Anual", hint: "4 meses gratis" },
 ];
 
+export function roundMoney(amount: number) {
+  return Math.round(amount * 100) / 100;
+}
+
 export function formatArs(amount: number) {
-  return `$${amount.toLocaleString("es-AR")}`;
+  const value = roundMoney(amount);
+  const hasDecimals = !Number.isInteger(value);
+
+  return `$${value.toLocaleString("es-AR", {
+    minimumFractionDigits: hasDecimals ? 2 : 0,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+export function getPromotionalUnitPrice(
+  listMonthlyPrice: number,
+  launchDiscountPercent: number,
+) {
+  return roundMoney(listMonthlyPrice * (1 - launchDiscountPercent / 100));
+}
+
+export function getBranchMonthlyTotals(promotionalUnitPrice: number) {
+  const second = roundMoney(
+    promotionalUnitPrice * (1 - branchVolumeDiscounts.second),
+  );
+  const third = roundMoney(
+    promotionalUnitPrice * (1 - branchVolumeDiscounts.third),
+  );
+
+  return [
+    promotionalUnitPrice,
+    roundMoney(promotionalUnitPrice + second),
+    roundMoney(promotionalUnitPrice + second + third),
+  ] as const;
 }
 
 export type BranchPriceDisplay = {
@@ -75,9 +115,11 @@ export function getBranchPriceDisplay(
   mode: BillingModeId,
 ): BranchPriceDisplay {
   const billingMode = billingModes[mode];
-  const total = monthlyPrice * billingMode.paidMonths;
+  const total = roundMoney(monthlyPrice * billingMode.paidMonths);
   const effectiveMonthly =
-    mode === "mensual" ? monthlyPrice : Math.round(total / billingMode.durationMonths);
+    mode === "mensual"
+      ? monthlyPrice
+      : roundMoney(total / billingMode.durationMonths);
 
   return {
     total,
@@ -87,8 +129,25 @@ export function getBranchPriceDisplay(
   };
 }
 
+export function getPlanPricing(planIndex: number) {
+  const plan = planPricing[planIndex];
+  const promotionalUnitPrice = getPromotionalUnitPrice(
+    plan.listMonthlyPrice,
+    plan.launchDiscountPercent,
+  );
+  const monthlyPrices = getBranchMonthlyTotals(promotionalUnitPrice);
+
+  return {
+    ...plan,
+    promotionalUnitPrice,
+    monthlyPrices,
+    listFormatted: formatArs(plan.listMonthlyPrice),
+    promotionalFormatted: formatArs(promotionalUnitPrice),
+  };
+}
+
 export function getPlanBranchPricing(planIndex: number, mode: BillingModeId) {
-  const monthlyPrices = planPricing[planIndex].monthlyPrices;
+  const { monthlyPrices } = getPlanPricing(planIndex);
 
   return {
     one: getBranchPriceDisplay(monthlyPrices[0], mode),
@@ -103,9 +162,10 @@ export function getPricingTableCopy(mode: BillingModeId) {
   if (mode === "mensual") {
     return {
       title: "Precio mensual por cantidad de sucursales",
-      footnote: "Smartock se cobra por sucursal · valores mensuales",
+      footnote:
+        "1ª al precio promo · 2ª con 15% OFF · 3ª con 20% OFF · valores mensuales",
       headlineSuffix: "/ mes",
-      referenceLabel: "Precio de referencia para 1 sucursal",
+      referenceLabel: "Precio promocional para 1 sucursal",
       rowSuffix: null as string | null,
     };
   }

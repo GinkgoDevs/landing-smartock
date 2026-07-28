@@ -6,7 +6,9 @@ import { AGENDA_URL } from "@/lib/links";
 import {
   billingModeOptions,
   billingModes,
+  getBranchPriceDisplay,
   getPlanBranchPricing,
+  getPlanPricing,
   getPricingTableCopy,
   type BillingModeId,
   type BranchPriceDisplay,
@@ -29,8 +31,7 @@ type PlanDetails = {
 const planDetails: PlanDetails[] = [
   {
     name: "Smart",
-    description:
-      "Gestión base para comercios que necesitan ordenar stock, ventas y cuentas básicas.",
+    description: "Ideal para ordenar stock, ventas y cuentas básicas.",
     cta: "Solicitar demo",
     groups: [
       {
@@ -52,7 +53,7 @@ const planDetails: PlanDetails[] = [
   {
     name: "Pro",
     description:
-      "Gestión completa con facturación, reportes y Stocky consultivo por WhatsApp.",
+      "Gestión completa con facturación, reportes y Stocky consultivo y operativo.",
     recommended: true,
     cta: "Solicitar demo",
     groups: [
@@ -72,7 +73,7 @@ const planDetails: PlanDetails[] = [
       },
       {
         label: "WhatsApp",
-        items: ["Stocky consultivo por WhatsApp"],
+        items: ["Stocky consultivo y operativo por WhatsApp"],
       },
     ],
   },
@@ -111,7 +112,7 @@ const planDetails: PlanDetails[] = [
 ];
 
 const disclaimers = [
-  "Los valores se calculan según la cantidad de sucursales.",
+  "Precios con descuento por lanzamiento. La 1ª sucursal abona el precio promo; la 2ª tiene 15% OFF y la 3ª 20% OFF sobre ese valor.",
   "Para más de 3 sucursales, armamos una propuesta personalizada.",
   "El plan semestral incluye 1 mes bonificado.",
   "El plan anual incluye 4 meses bonificados.",
@@ -232,9 +233,19 @@ function BranchPricingTable({
   const valueHighlight = isRecommended ? "text-white" : "text-[#520088]";
 
   const rows = [
-    { branches: "1 sucursal", price: pricing.one, highlight: true },
-    { branches: "2 sucursales", price: pricing.two, highlight: false },
-    { branches: "3 sucursales", price: pricing.three, highlight: false },
+    { branches: "1 sucursal", price: pricing.one, highlight: true, hint: null },
+    {
+      branches: "2 sucursales",
+      price: pricing.two,
+      highlight: false,
+      hint: "2ª con 15% OFF",
+    },
+    {
+      branches: "3 sucursales",
+      price: pricing.three,
+      highlight: false,
+      hint: "3ª con 20% OFF",
+    },
   ] as const;
 
   return (
@@ -272,6 +283,16 @@ function BranchPricingTable({
               >
                 {row.branches}
               </span>
+              {row.hint ? (
+                <span
+                  className={[
+                    "mt-0.5 block text-[10px] font-semibold",
+                    isRecommended ? "text-[#5ed8ff]/90" : "text-[#520088]/80",
+                  ].join(" ")}
+                >
+                  {row.hint}
+                </span>
+              ) : null}
               {mode !== "mensual" ? (
                 <span
                   className={[
@@ -357,9 +378,14 @@ function PlanCard({
 }) {
   const isRecommended = Boolean(plan.recommended);
   const isPremium = Boolean(plan.premium);
+  const planPricingData = getPlanPricing(planIndex);
   const pricing = getPlanBranchPricing(planIndex, billingMode);
   const copy = getPricingTableCopy(billingMode);
   const headline = pricing.one;
+  const listOneDisplay = getBranchPriceDisplay(
+    planPricingData.listMonthlyPrice,
+    billingMode,
+  ).formatted;
 
   return (
     <article
@@ -379,7 +405,17 @@ function PlanCard({
         </span>
       ) : null}
 
-      <div className={isPremium ? "mb-3 min-h-[26px]" : "min-h-[26px]"}>
+      <div className="mb-3 flex min-h-[26px] flex-wrap items-center gap-2">
+        <span
+          className={[
+            "inline-flex w-fit items-center rounded-full px-3 py-1 text-[11px] font-extrabold tracking-[0.04em] uppercase",
+            isRecommended
+              ? "bg-white text-[#520088]"
+              : "bg-[#520088] text-white",
+          ].join(" ")}
+        >
+          {planPricingData.launchDiscountPercent}% OFF
+        </span>
         {isPremium ? (
           <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#520088]/15 bg-[#520088]/6 px-3 py-1 text-[11px] font-extrabold tracking-[0.04em] text-[#520088] uppercase">
             <svg aria-hidden="true" className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
@@ -400,36 +436,47 @@ function PlanCard({
           Plan {plan.name}
         </h3>
 
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+        <div className="space-y-1.5">
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <p
+              className={[
+                "text-[clamp(1.875rem,4vw,2.375rem)] leading-none font-black tracking-[-0.05em]",
+                isRecommended ? "text-white" : "text-[#520088]",
+              ].join(" ")}
+            >
+              {headline.formatted}
+            </p>
+            <span
+              className={[
+                "text-sm font-semibold",
+                isRecommended ? "text-white/75" : "text-[#6b5f72]",
+              ].join(" ")}
+            >
+              {copy.headlineSuffix}
+            </span>
+          </div>
           <p
             className={[
-              "text-[clamp(1.875rem,4vw,2.375rem)] leading-none font-black tracking-[-0.05em]",
-              isRecommended ? "text-white" : "text-[#520088]",
+              "text-[12px] font-semibold",
+              isRecommended ? "text-white/70" : "text-[#6b5f72]",
             ].join(" ")}
           >
-            {headline.formatted}
+            {billingMode === "mensual" ? "1 sucursal" : copy.referenceLabel}
+            {billingMode !== "mensual"
+              ? ` · ${headline.effectiveFormatted}/mes efectivo`
+              : null}
           </p>
-          <span
+          <p
             className={[
-              "text-sm font-semibold",
-              isRecommended ? "text-white/75" : "text-[#6b5f72]",
+              "text-[12px] font-medium",
+              isRecommended ? "text-white/55" : "text-[#9a8da3]",
             ].join(" ")}
           >
-            {copy.headlineSuffix}
-          </span>
+            <span className="line-through">{listOneDisplay}</span>
+            {" "}
+            precio original
+          </p>
         </div>
-
-        <p
-          className={[
-            "text-[12px] font-semibold",
-            isRecommended ? "text-white/70" : "text-[#6b5f72]",
-          ].join(" ")}
-        >
-          {copy.referenceLabel}
-          {billingMode !== "mensual"
-            ? ` · ${headline.effectiveFormatted}/mes efectivo`
-            : null}
-        </p>
 
         <p
           className={[
@@ -538,15 +585,15 @@ export function PricingSection() {
         </div>
 
         <div className="mb-6 flex justify-center md:mb-8">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-[#520088]/20 bg-linear-to-r from-[#fcf8ff] via-white to-[#f2e8ff] px-4 py-2 shadow-[0_8px_24px_rgba(82,0,136,0.1)] sm:gap-3 sm:px-5 sm:py-2.5">
+          <div className="inline-flex max-w-xl items-center gap-2.5 rounded-full border border-[#520088]/20 bg-linear-to-r from-[#fcf8ff] via-white to-[#f2e8ff] px-4 py-2 shadow-[0_8px_24px_rgba(82,0,136,0.1)] sm:gap-3 sm:px-5 sm:py-2.5">
             <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#520088] text-white">
               <GiftIcon className="h-4 w-4" />
             </span>
             <p className="text-balance text-left text-sm font-bold text-[#1a1a28] sm:text-[15px]">
-              Primer mes bonificado
+              Descuento por lanzamiento
               <span className="block text-xs font-semibold text-[#6b5f72] sm:inline sm:font-bold sm:text-[#520088]">
                 {" "}
-                · para nuevos clientes
+                · hasta 30% OFF + primer mes bonificado
               </span>
             </p>
           </div>
