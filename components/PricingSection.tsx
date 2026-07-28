@@ -53,7 +53,7 @@ const planDetails: PlanDetails[] = [
   {
     name: "Pro",
     description:
-      "Gestión completa con facturación, reportes y Stocky consultivo y operativo.",
+      "Gestión completa con facturación, lector de facturas con IA y Stocky consultivo y operativo.",
     recommended: true,
     cta: "Solicitar demo",
     groups: [
@@ -77,14 +77,17 @@ const planDetails: PlanDetails[] = [
       },
       {
         label: "IA",
-        items: ["50 extracciones IA mensuales incluidas"],
+        items: [
+          "Lector de facturas con IA",
+          "50 extracciones IA mensuales incluidas",
+        ],
       },
     ],
   },
   {
     name: "IA Premium",
     description:
-      "Automatización con IA y Stocky operativo para comercios que quieren escalar sin carga manual.",
+      "Más recursos de IA y automatización de listas de precios para escalar sin carga manual.",
     premium: true,
     cta: "Consultar plan",
     groups: [
@@ -99,16 +102,9 @@ const planDetails: PlanDetails[] = [
       {
         label: "IA",
         items: [
-          "Cargas con IA de facturas",
+          "150 extracciones IA mensuales incluidas",
           "Cargas con IA de listas de precios",
           "Actualización automática de precios y stock",
-        ],
-      },
-      {
-        label: "IA / WhatsApp",
-        items: [
-          "Stocky consultivo y operativo",
-          "150 extracciones IA mensuales incluidas",
         ],
       },
     ],
@@ -120,7 +116,7 @@ const disclaimers = [
   "Para más de 3 sucursales, armamos una propuesta personalizada.",
   "El plan semestral incluye 1 mes bonificado.",
   "El plan anual incluye 4 meses bonificados.",
-  "Las extracciones IA incluyen procesamiento de facturas o listas de precios.",
+  "Las extracciones IA del plan Pro aplican al lector de facturas. En IA Premium también cubren listas de precios.",
 ];
 
 function CheckIcon({ className }: { className?: string }) {
