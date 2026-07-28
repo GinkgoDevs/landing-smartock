@@ -75,6 +75,10 @@ const planDetails: PlanDetails[] = [
         label: "WhatsApp",
         items: ["Stocky consultivo y operativo por WhatsApp"],
       },
+      {
+        label: "IA",
+        items: ["50 extracciones IA mensuales incluidas"],
+      },
     ],
   },
   {
@@ -104,7 +108,7 @@ const planDetails: PlanDetails[] = [
         label: "IA / WhatsApp",
         items: [
           "Stocky consultivo y operativo",
-          "50 extracciones IA mensuales incluidas",
+          "150 extracciones IA mensuales incluidas",
         ],
       },
     ],
