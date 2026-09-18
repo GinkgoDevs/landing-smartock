@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NavBar } from "@/components/NavBar";
+import { Navbar } from "@/components/Navbar";
 import { AGENDA_URL } from "@/lib/links";
 import type { LegalSection } from "@/content/legal-types";
 
@@ -34,7 +34,7 @@ export function LegalDocumentPage({
 }: LegalDocumentPageProps) {
   return (
     <>
-      <NavBar />
+      <Navbar />
 
       <main className="legalPage">
         <div className="container legalPageInner">
