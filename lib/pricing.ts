@@ -10,6 +10,16 @@ export const planPricing = [
     launchDiscountPercent: 10,
     recommended: false,
     premium: false,
+    description: "Ideal para ordenar stock, ventas y cuentas básicas.",
+    features: [
+      "Gestión de stock",
+      "Productos y precios",
+      "Punto de venta (POS)",
+      "Gestión de clientes",
+      "Cuentas corrientes básicas",
+      "Hasta 5.000 productos",
+      "1 usuario",
+    ],
   },
   {
     name: "Pro",
@@ -17,6 +27,20 @@ export const planPricing = [
     launchDiscountPercent: 15,
     recommended: true,
     premium: false,
+    description:
+      "Gestión completa con facturación, lector de facturas con IA y Stocky consultivo y operativo.",
+    features: [
+      "Todo lo incluido en Smart",
+      "Facturación electrónica",
+      "Gestión de proveedores",
+      "Reportes de ventas",
+      "Cuentas corrientes avanzadas",
+      "Stocky consultivo y operativo por WhatsApp",
+      "Lector de facturas con inteligencia artificial",
+      "Hasta 30.000 productos",
+      "5 usuarios",
+      "50 extracciones IA mensuales (facturas)",
+    ],
   },
   {
     name: "IA Premium",
@@ -24,6 +48,16 @@ export const planPricing = [
     launchDiscountPercent: 30,
     recommended: false,
     premium: true,
+    description:
+      "Automatizá listas de precios y reducí cargas manuales con IA avanzada.",
+    features: [
+      "Todo lo incluido en Pro",
+      "Carga de listas de precios mediante IA",
+      "Actualización automática de precios y stock",
+      "Hasta 50.000 productos",
+      "15 usuarios",
+      "150 extracciones IA mensuales (facturas y listas)",
+    ],
   },
 ] as const;
 
@@ -163,7 +197,7 @@ export function getPricingTableCopy(mode: BillingModeId) {
     return {
       title: "Precio mensual por cantidad de sucursales",
       footnote:
-        "1ª al precio promo · 2ª con 15% OFF · 3ª con 20% OFF · valores mensuales",
+        "1ª al precio promo · 2ª con 15% OFF · 3ª con 20% OFF · más de 3 sucursales: presupuesto personalizado · valores mensuales",
       headlineSuffix: "/ mes",
       referenceLabel: "Precio promocional para 1 sucursal",
       rowSuffix: null as string | null,

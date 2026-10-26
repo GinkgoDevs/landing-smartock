@@ -11,38 +11,9 @@ import {
   getPlanBranchPricing,
   getPlanPricing,
   getPricingTableCopy,
+  planPricing,
   type BillingModeId,
 } from "@/lib/pricing"
-
-// Copy (descs/features) follows the source layout; plan names, prices,
-// discounts and billing periods come from @/lib/pricing.
-const PLAN_COPY = [
-  {
-    desc: "Para comercios que arrancan a digitalizar su operación.",
-    features: ["Punto de venta", "Inventario básico", "Caja", "Facturación ARCA", "1 usuario"],
-  },
-  {
-    desc: "Para negocios que necesitan control completo de su operación.",
-    features: [
-      "Todo lo de Smart",
-      "Stock avanzado con trazabilidad",
-      "Dashboard y reportes",
-      "Stocky (asistente inteligente)",
-      "Mercado Pago integrado",
-      "Hasta 3 usuarios",
-    ],
-  },
-  {
-    desc: "Para operaciones con workflows especializados.",
-    features: [
-      "Todo lo de Pro",
-      "Despiece y workflows",
-      "Multi-sucursal",
-      "Usuarios ilimitados",
-      "Soporte prioritario",
-    ],
-  },
-]
 
 type PricingProps = {
   className?: string
@@ -59,7 +30,8 @@ export function Pricing({ className = "" }: PricingProps) {
           <Eyebrow>PLANES</Eyebrow>
           <SectionHeading className="mt-3">Elegí cuánto necesita tu operación.</SectionHeading>
           <Lead className="mx-auto mt-4 max-w-[560px]">
-            Todos los planes incluyen soporte e implementación acompañada.
+            Promoción de lanzamiento: hasta 30% OFF. Todos los planes incluyen soporte e
+            implementación acompañada.
           </Lead>
         </div>
 
@@ -95,7 +67,7 @@ export function Pricing({ className = "" }: PricingProps) {
         </p>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {PLAN_COPY.map((planCopy, i) => {
+          {planPricing.map((_, i) => {
             const plan = getPlanPricing(i)
             const pricing = getPlanBranchPricing(i, billingMode)
             const featured = plan.recommended
@@ -130,7 +102,7 @@ export function Pricing({ className = "" }: PricingProps) {
                   </span>
                 )}
                 <h3 className="text-xl font-extrabold">{plan.name}</h3>
-                <p className="mt-1 text-[13px] text-muted">{planCopy.desc}</p>
+                <p className="mt-1 text-[13px] text-muted">{plan.description}</p>
                 <p className="mt-2 inline-flex w-fit items-center rounded-full bg-brand-soft px-2.5 py-0.5 text-[11px] font-bold text-brand">
                   {plan.launchDiscountPercent}% OFF lanzamiento
                 </p>
@@ -172,7 +144,7 @@ export function Pricing({ className = "" }: PricingProps) {
                 <p className="mt-3 text-[12px] text-muted">{copy.footnote}</p>
                 <div className="my-5 h-px bg-line" />
                 <ul className="grid flex-1 gap-2.5">
-                  {planCopy.features.map((f) => (
+                  {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-sm text-muted">
                       <CheckIcon />
                       {f}
